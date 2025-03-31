@@ -27,6 +27,15 @@ public class GunController : MonoBehaviour
 
     public float aimSmoothing = 10;
 
+    [Header("Mouse Settings")]
+    public float mouseSensitivity = 1;
+    Vector2 _currentRotation;
+
+    //Weapon Recoil
+    public bool randomizeRecoil;
+    public Vector2 randomRecoilConstraints;
+    public Vector2[] recoilPattern;
+
     private void Start()
     {
         _currentAmmoInClip = clipSize;
@@ -75,9 +84,36 @@ public class GunController : MonoBehaviour
         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRot, Time.deltaTime * aimSmoothing);
     }
 
+    void DetermineRecoil()
+    {
+        transform.localPosition -= Vector3.forward * 0.1f;
+
+        //Recoil of the camera
+        if (randomizeRecoil)
+        {
+            float xRecoil = Random.Range(-randomRecoilConstraints.x, randomRecoilConstraints.x);
+            float yRecoil = Random.Range(-randomRecoilConstraints.y, randomRecoilConstraints.y);
+
+            Vector2 recoild = new Vector2(xRecoil, yRecoil);
+
+            _currentRotation += recoild;
+        }
+        else
+        {
+            int currentStep = clipSize + 1 - _currentAmmoInClip;
+            currentStep = Mathf.Clamp(currentStep, 0, recoilPattern.Length - 1);
+
+            _currentRotation += recoilPattern[currentStep];
+        }
+    }
+
     IEnumerator ShootGun()
     {
+        DetermineRecoil();
         StartCoroutine(MuzzleFlash());
+
+        RayCastForEnnemy();
+
         yield return new WaitForSeconds(fireRate);
         _canShoot = true;
     }
@@ -89,5 +125,24 @@ public class GunController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         muzzleFlashImage.sprite = null;
         muzzleFlashImage.color = new Color(0, 0, 0, 0);
+    }
+
+    void RayCastForEnnemy()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.parent.position, transform.parent.forward, out hit, 1 << LayerMask.NameToLayer("Enemy")))
+        {
+            try
+            {
+                Debug.Log("Hit " + hit.collider.gameObject.name);
+                Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
+                rb.constraints = RigidbodyConstraints.None;
+                rb.AddForce(transform.parent.transform.forward * 500);
+            }
+            catch
+            {
+                
+            }
+        }
     }
 }
