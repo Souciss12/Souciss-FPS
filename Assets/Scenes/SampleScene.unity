@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 76857469}
   - component: {fileID: 76857468}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube-01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 254061608}
   - component: {fileID: 254061607}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Cube-05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 677580810}
   - component: {fileID: 677580809}
   m_Layer: 0
-  m_Name: Cube (7)
+  m_Name: Cube-08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 788208672}
   - component: {fileID: 788208671}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube-02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -891,7 +891,7 @@ GameObject:
   - component: {fileID: 1073159836}
   - component: {fileID: 1073159835}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Cube-04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 1479460388}
   - component: {fileID: 1479460387}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Cube-03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 1609906909}
   - component: {fileID: 1609906908}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: Cube-06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1451,7 +1451,7 @@ GameObject:
   - component: {fileID: 2046024105}
   - component: {fileID: 2046024104}
   m_Layer: 0
-  m_Name: Cube (6)
+  m_Name: Cube-07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1555,50 +1555,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: aimingSpread
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: hipFireSpread
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: randomizeRecoil
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: enemyImpactEffect
-      value: 
-      objectReference: {fileID: 4515497926535975121, guid: bddb971e34eb14d48be30c7b922eb077, type: 3}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: maxSpreadIncrease
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: surfaceImpactEffect
-      value: 
-      objectReference: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: aimingLocalPosition.y
-      value: -0.065
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: aimingLocalPosition.z
-      value: 0.478
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: spreadIncreasePerShot
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: randomRecoilConstraints.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: randomRecoilConstraints.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5307261773440610656, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1639,9 +1595,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7276785271262128436, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: lookXLimit
-      value: 75
+    - target: {fileID: 8088358127211555705, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8088358127211555705, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1650,6 +1606,18 @@ PrefabInstance:
     - target: {fileID: 8088358127211555705, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.478
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088358127211555705, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99991435
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088358127211555705, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.013089582
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088358127211555705, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

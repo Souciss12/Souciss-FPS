@@ -105,10 +105,8 @@ public class GunController : MonoBehaviour
 
         bool isAiming = Input.GetMouseButton(1);
 
-        // Détection du moment où le joueur commence à viser
         if (isAiming && !_wasAiming)
         {
-            // Réinitialiser le spread à la valeur de aimingSpread quand on commence à viser
             _currentSpread = aimingSpread;
         }
 
@@ -123,7 +121,6 @@ public class GunController : MonoBehaviour
         transform.localPosition = desirePosition;
         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRot, Time.deltaTime * aimSmoothing);
 
-        // Mettre à jour l'état de visée précédent
         _wasAiming = isAiming;
     }
 
@@ -131,23 +128,22 @@ public class GunController : MonoBehaviour
     {
         transform.localPosition -= Vector3.forward * 0.1f;
 
-        //Recoil of the camera
-        if (randomizeRecoil)
-        {
-            float xRecoil = Random.Range(-randomRecoilConstraints.x, randomRecoilConstraints.x);
-            float yRecoil = Random.Range(-randomRecoilConstraints.y, randomRecoilConstraints.y);
+        // if (randomizeRecoil)
+        // {
+        //     float xRecoil = Random.Range(-randomRecoilConstraints.x, randomRecoilConstraints.x);
+        //     float yRecoil = Random.Range(-randomRecoilConstraints.y, randomRecoilConstraints.y);
 
-            Vector2 recoild = new Vector2(xRecoil, yRecoil);
+        //     Vector2 recoild = new Vector2(xRecoil, yRecoil);
 
-            _currentRotation += recoild;
-        }
-        else
-        {
-            int currentStep = clipSize + 1 - _currentAmmoInClip;
-            currentStep = Mathf.Clamp(currentStep, 0, recoilPattern.Length - 1);
+        //     _currentRotation += recoild;
+        // }
+        // else
+        // {
+        //     int currentStep = clipSize + 1 - _currentAmmoInClip;
+        //     currentStep = Mathf.Clamp(currentStep, 0, recoilPattern.Length - 1);
 
-            _currentRotation += recoilPattern[currentStep];
-        }
+        //     _currentRotation += recoilPattern[currentStep];
+        // }
     }
 
     void UpdateSpread()

@@ -36,6 +36,7 @@ Souciss-FPS is a lightweight, customizable first-person shooter framework built 
 - **Mouse**: Look around
 - **Space**: Jump
 - **Left Shift**: Run
+- **R**: Reload weapon
 
 ## 🛠 Customization
 The FPS Controller and Weapon components can be easily customized through the Unity Inspector:
