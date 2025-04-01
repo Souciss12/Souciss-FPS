@@ -65,7 +65,7 @@ The FPS Controller and Weapon components can be easily customized through the Un
 - [ ] AI enemy system
 
 ## 📦 Releases
-### v0.1.0 - Initial Release
+#### [v0.1.0 - Initial Release](https://github.com/Souciss12/Souciss-FPS/releases/tag/v0.1.0)
 - Basic FPS controller implementation
 - Camera controls with mouse
 - Walking and running mechanics
