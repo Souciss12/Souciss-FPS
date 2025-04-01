@@ -26,7 +26,7 @@ Souciss-FPS is a lightweight, customizable first-person shooter framework built 
 ## 🚀 Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/Souciss-FPS.git
+   git clone https://github.com/Souciss12/Souciss-FPS.git
    ```
 2. Open the project in Unity Hub using Unity 2022.3.27f1 or later.
 3. Open the `SampleScene.unity` file to explore the demo environment.
