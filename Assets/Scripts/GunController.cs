@@ -47,6 +47,14 @@ public class GunController : MonoBehaviour
     public float spreadRecoveryTime = 0.5f; // Temps nécessaire pour récupérer la précision initiale
     public float spreadRecoveryDelay = 0.2f; // Délai avant de commencer à récupérer la précision
 
+    [Header("Impact Effects")]
+    public GameObject enemyImpactEffect; // Effet d'impact sur les ennemis (comme du sang)
+    public GameObject surfaceImpactEffect; // Effet d'impact sur les surfaces normales
+    public float impactForce = 500f; // Force appliquée aux objets touchés
+    public float impactLifetime = 3f; // Durée de vie des effets d'impact en secondes
+
+    private bool _wasAiming = false; // Variable pour suivre l'état de visée précédent
+
     private void Start()
     {
         _currentAmmoInClip = clipSize;
@@ -94,7 +102,17 @@ public class GunController : MonoBehaviour
     {
         Vector3 targetPos = normalLocalPosition;
         Quaternion targetRot = normalLocalRotation;
-        if (Input.GetMouseButton(1))
+
+        bool isAiming = Input.GetMouseButton(1);
+
+        // Détection du moment où le joueur commence à viser
+        if (isAiming && !_wasAiming)
+        {
+            // Réinitialiser le spread à la valeur de aimingSpread quand on commence à viser
+            _currentSpread = aimingSpread;
+        }
+
+        if (isAiming)
         {
             targetPos = aimingLocalPosition;
             targetRot = aimingLocalRotation;
@@ -104,6 +122,9 @@ public class GunController : MonoBehaviour
 
         transform.localPosition = desirePosition;
         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRot, Time.deltaTime * aimSmoothing);
+
+        // Mettre à jour l'état de visée précédent
+        _wasAiming = isAiming;
     }
 
     void DetermineRecoil()
@@ -170,31 +191,39 @@ public class GunController : MonoBehaviour
         Vector3 start = transform.parent.position;
         Vector3 direction = CalculateSpreadDirection(transform.parent.forward);
 
-        if (Physics.Raycast(start, direction, out hit, maxFireDistance, 1 << LayerMask.NameToLayer("Enemy")))
-        {
-            try
-            {
-                Debug.Log("Hit " + hit.collider.gameObject.name);
-                Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
-                rb.constraints = RigidbodyConstraints.None;
-                rb.AddForce(direction * 500);
-            }
-            catch
-            {
-                // Gestion des exceptions
-            }
-            Debug.DrawLine(start, hit.point, Color.red, 1f);
-        }
-        else if (Physics.Raycast(start, direction, out hit, maxFireDistance))
+        if (Physics.Raycast(start, direction, out hit, maxFireDistance))
         {
             Debug.Log("Hit " + hit.collider.gameObject.name);
+
+            // Vérifier si l'objet touché est sur la couche "Enemy"
+            bool isEnemy = hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy");
+
+            // Appliquer la force aux objets avec Rigidbody
             Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.constraints = RigidbodyConstraints.None;
-                rb.AddForce(direction * 500);
+                rb.AddForce(direction * impactForce);
             }
-            Debug.DrawLine(start, hit.point, Color.green, 1f);
+
+            // Instancier l'effet d'impact approprié
+            GameObject impactEffectToSpawn = isEnemy ? enemyImpactEffect : surfaceImpactEffect;
+            if (impactEffectToSpawn != null)
+            {
+                // Créer l'effet d'impact
+                GameObject impactInstance = Instantiate(
+                    impactEffectToSpawn,
+                    hit.point,
+                    Quaternion.LookRotation(hit.normal)
+                );
+
+                // Détruire l'effet après un certain temps
+                Destroy(impactInstance, impactLifetime);
+            }
+
+            // Dessiner la ligne de débug avec la couleur appropriée
+            Color debugColor = isEnemy ? Color.red : Color.green;
+            Debug.DrawLine(start, hit.point, debugColor, 1f);
         }
         else
         {
