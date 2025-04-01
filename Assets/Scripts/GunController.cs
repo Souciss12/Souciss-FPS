@@ -6,56 +6,78 @@ using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
     [Header("Gun Settings")]
-    public float fireRate = 0.1f;
-    public int clipSize = 30;
-    public int reservedAmmoCapacity = 270;
+    public float fireRate = 0.1f; // Cadence de tir en secondes
+    public int clipSize = 30; // Capacité du chargeur
+    public int reservedAmmoCapacity = 270; // Capacité de munitions en réserve
 
     //Variables that change throughout the code
-    public bool _canShoot;
-    public int _currentAmmoInClip;
-    public int _ammoInReserve;
+    public bool _canShoot; // Indique si l'arme peut tirer
+    public int _currentAmmoInClip; // Munitions actuelles dans le chargeur
+    public int _ammoInReserve; // Munitions en réserve
+    private float _currentSpread; // Dispersion actuelle calculée en fonction des tirs et de l'état de visée
+    private float _lastShotTime; // Moment du dernier tir pour gérer la récupération de la précision
 
     //Muzzle Flash
-    public Image muzzleFlashImage;
-    public Sprite[] flashes;
+    public Image muzzleFlashImage; // Image de l'éclair de bouche
+    public Sprite[] flashes; // Tableaux de sprites pour l'éclair de bouche
 
     //Aiming
-    public Vector3 normalLocalPosition;
-    public Quaternion normalLocalRotation;
-    public Vector3 aimingLocalPosition;
-    public Quaternion aimingLocalRotation;
+    public Vector3 normalLocalPosition; // Position locale normale de l'arme
+    public Quaternion normalLocalRotation; // Rotation locale normale de l'arme
+    public Vector3 aimingLocalPosition; // Position locale de l'arme en visée
+    public Quaternion aimingLocalRotation; // Rotation locale de l'arme en visée
 
-    public float aimSmoothing = 10;
+    public float aimSmoothing = 10; // Lissage de la visée
+    public float maxFireDistance = 500f; // Distance maximale de tir
 
     [Header("Mouse Settings")]
-    public float mouseSensitivity = 1;
-    Vector2 _currentRotation;
+    public float mouseSensitivity = 1; // Sensibilité de la souris
+    Vector2 _currentRotation; // Rotation actuelle de la caméra
 
     //Weapon Recoil
-    public bool randomizeRecoil;
-    public Vector2 randomRecoilConstraints;
-    public Vector2[] recoilPattern;
+    public bool randomizeRecoil; // Indique si le recul est aléatoire
+    public Vector2 randomRecoilConstraints; // Contraintes de recul aléatoire
+    public Vector2[] recoilPattern; // Modèle de recul
+
+    [Header("Accuracy Settings")]
+    public float hipFireSpread = 5f; // Dispersion en degrés quand on tire sans viser
+    public float aimingSpread = 0.5f; // Dispersion en degrés quand on vise
+    public float maxSpreadIncrease = 5f; // Augmentation maximale de la dispersion lors de tirs consécutifs
+    public float spreadIncreasePerShot = 0.5f; // Augmentation de dispersion par tir
+    public float spreadRecoveryTime = 0.5f; // Temps nécessaire pour récupérer la précision initiale
+    public float spreadRecoveryDelay = 0.2f; // Délai avant de commencer à récupérer la précision
 
     private void Start()
     {
         _currentAmmoInClip = clipSize;
         _ammoInReserve = reservedAmmoCapacity;
         _canShoot = true;
+        _currentSpread = hipFireSpread;
+        _lastShotTime = -spreadRecoveryDelay;
     }
 
     private void Update()
     {
         DetermineAim();
+        UpdateSpread();
+
         if (Input.GetMouseButton(0) && _canShoot && _currentAmmoInClip > 0)
         {
             _canShoot = false;
             _currentAmmoInClip--;
+            _lastShotTime = Time.time;
+
+            if (!Input.GetMouseButton(1) || aimingSpread > 0)
+            {
+                _currentSpread += spreadIncreasePerShot;
+            }
+
             StartCoroutine(ShootGun());
         }
-        else if(Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0)
+        else if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0)
         {
             int amountNeeded = clipSize - _currentAmmoInClip;
-            if(amountNeeded >= _ammoInReserve)
+            if (amountNeeded >= _ammoInReserve)
             {
                 _currentAmmoInClip += _ammoInReserve;
                 _ammoInReserve -= amountNeeded;
@@ -107,6 +129,21 @@ public class GunController : MonoBehaviour
         }
     }
 
+    void UpdateSpread()
+    {
+        // Déterminer la dispersion de base en fonction de l'état de visée
+        float baseSpread = Input.GetMouseButton(1) ? aimingSpread : hipFireSpread;
+
+        // Récupérer progressivement la précision après un certain délai
+        if (Time.time > _lastShotTime + spreadRecoveryDelay)
+        {
+            _currentSpread = Mathf.Lerp(_currentSpread, baseSpread, Time.deltaTime / spreadRecoveryTime);
+        }
+
+        // Limiter la dispersion maximale
+        _currentSpread = Mathf.Clamp(_currentSpread, baseSpread, baseSpread + maxSpreadIncrease);
+    }
+
     IEnumerator ShootGun()
     {
         DetermineRecoil();
@@ -130,19 +167,59 @@ public class GunController : MonoBehaviour
     void RayCastForEnnemy()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.parent.position, transform.parent.forward, out hit, 1 << LayerMask.NameToLayer("Enemy")))
+        Vector3 start = transform.parent.position;
+        Vector3 direction = CalculateSpreadDirection(transform.parent.forward);
+
+        if (Physics.Raycast(start, direction, out hit, maxFireDistance, 1 << LayerMask.NameToLayer("Enemy")))
         {
             try
             {
                 Debug.Log("Hit " + hit.collider.gameObject.name);
                 Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
                 rb.constraints = RigidbodyConstraints.None;
-                rb.AddForce(transform.parent.transform.forward * 500);
+                rb.AddForce(direction * 500);
             }
             catch
             {
-                
+                // Gestion des exceptions
             }
+            Debug.DrawLine(start, hit.point, Color.red, 1f);
         }
+        else if (Physics.Raycast(start, direction, out hit, maxFireDistance))
+        {
+            Debug.Log("Hit " + hit.collider.gameObject.name);
+            Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.constraints = RigidbodyConstraints.None;
+                rb.AddForce(direction * 500);
+            }
+            Debug.DrawLine(start, hit.point, Color.green, 1f);
+        }
+        else
+        {
+            Debug.Log("Missed");
+            Debug.DrawLine(start, start + direction * maxFireDistance, Color.blue, 1f);
+        }
+    }
+
+    Vector3 CalculateSpreadDirection(Vector3 originalDirection)
+    {
+        // Si la dispersion actuelle est quasiment nulle, retourner la direction exacte
+        const float minSpreadThreshold = 0.001f;
+        if (_currentSpread <= minSpreadThreshold)
+        {
+            return originalDirection;
+        }
+
+        // Créer une dispersion aléatoire
+        float spreadAngleX = Random.Range(-_currentSpread, _currentSpread);
+        float spreadAngleY = Random.Range(-_currentSpread, _currentSpread);
+
+        // Convertir en quaternion pour appliquer la rotation
+        Quaternion spreadRotation = Quaternion.Euler(spreadAngleX, spreadAngleY, 0);
+
+        // Appliquer la dispersion à la direction originale
+        return spreadRotation * originalDirection;
     }
 }
