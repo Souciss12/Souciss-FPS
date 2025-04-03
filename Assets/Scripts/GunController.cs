@@ -22,10 +22,12 @@ public class GunController : MonoBehaviour
     public Sprite[] flashes; // Tableaux de sprites pour l'éclair de bouche
 
     //Aiming
-    public Vector3 normalLocalPosition; // Position locale normale de l'arme
-    public Quaternion normalLocalRotation; // Rotation locale normale de l'arme
-    public Vector3 aimingLocalPosition; // Position locale de l'arme en visée
-    public Quaternion aimingLocalRotation; // Rotation locale de l'arme en visée
+    public Vector3 weaponPosition; // Position locale normale de l'arme
+    public Vector3 weaponAimingPosition; // Position locale de l'arme en visée
+    public Vector3 weaponRotation; // Rotation locale normale de l'arme
+    private Quaternion weaponRotationQuaternion;
+    public Vector3 weaponAimingRotation; // Rotation locale de l'arme en visée
+    private Quaternion weaponAimingRotationQuaternion;
 
     public float aimSmoothing = 10; // Lissage de la visée
     public float maxFireDistance = 500f; // Distance maximale de tir
@@ -46,6 +48,13 @@ public class GunController : MonoBehaviour
 
     private bool _wasAiming = false; // Variable pour suivre l'état de visée précédent
 
+    private void Awake()
+    {
+        // Convert Euler angles to Quaternions
+        weaponRotationQuaternion = Quaternion.Euler(weaponRotation);
+        weaponAimingRotationQuaternion = Quaternion.Euler(weaponAimingRotation);
+    }
+
     private void Start()
     {
         _currentAmmoInClip = clipSize;
@@ -53,6 +62,10 @@ public class GunController : MonoBehaviour
         _canShoot = true;
         _currentSpread = hipFireSpread;
         _lastShotTime = -spreadRecoveryDelay;
+
+        // Initialize weapon to normal position and rotation
+        transform.localPosition = weaponPosition;
+        transform.localRotation = weaponRotationQuaternion;
     }
 
     private void Update()
@@ -91,8 +104,8 @@ public class GunController : MonoBehaviour
 
     void DetermineAim()
     {
-        Vector3 targetPos = normalLocalPosition;
-        Quaternion targetRot = normalLocalRotation;
+        Vector3 targetPos = weaponPosition;
+        Quaternion targetRot = weaponRotationQuaternion;
 
         bool isAiming = Input.GetMouseButton(1);
 
@@ -103,14 +116,31 @@ public class GunController : MonoBehaviour
 
         if (isAiming)
         {
-            targetPos = aimingLocalPosition;
-            targetRot = aimingLocalRotation;
+            targetPos = weaponAimingPosition;
+            targetRot = weaponAimingRotationQuaternion;
         }
 
-        Vector3 desirePosition = Vector3.Lerp(transform.localPosition, targetPos, Time.deltaTime * aimSmoothing);
+        // Use a more consistent interpolation factor
+        float lerpFactor = Mathf.Clamp01(aimSmoothing * Time.deltaTime);
 
-        transform.localPosition = desirePosition;
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRot, Time.deltaTime * aimSmoothing);
+        // Interpolate position
+        Vector3 desiredPosition = Vector3.Lerp(transform.localPosition, targetPos, lerpFactor);
+
+        // Snap to exact position if very close (prevents floating point imprecision)
+        if (Vector3.Distance(transform.localPosition, targetPos) < 0.001f)
+            transform.localPosition = targetPos;
+        else
+            transform.localPosition = desiredPosition;
+
+        // Improved rotation handling with higher smoothing for rotation
+        float rotationFactor = Mathf.Clamp01((aimSmoothing * 0.8f) * Time.deltaTime);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, rotationFactor);
+
+        // Only snap to target rotation when very close to avoid jitter
+        if (Quaternion.Angle(transform.localRotation, targetRot) < 0.5f)
+        {
+            transform.localRotation = targetRot;
+        }
 
         _wasAiming = isAiming;
     }
