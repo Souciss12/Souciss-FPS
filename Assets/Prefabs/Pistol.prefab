@@ -233,26 +233,25 @@ MonoBehaviour:
   muzzleFlashImage: {fileID: 6606019763016524111}
   flashes:
   - {fileID: 21300000, guid: 1c255bf0b9c8233488785300cb631850, type: 3}
-  normalLocalPosition: {x: 0.2992979, y: -0.1736097, z: 0.5153503}
-  normalLocalRotation: {x: 1.67, y: 182.45, z: 0, w: 0}
-  aimingLocalPosition: {x: 0, y: -0.065, z: 0.478}
-  aimingLocalRotation: {x: 0, y: 180, z: 0, w: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
+  weaponAimingPosition: {x: 0, y: 0, z: 0}
+  weaponRotation: {x: 0, y: 0, z: 0}
+  weaponAimingRotation: {x: 0, y: 0, z: 0}
   aimSmoothing: 10
   maxFireDistance: 500
-  mouseSensitivity: 1
-  randomizeRecoil: 1
-  randomRecoilConstraints: {x: 1, y: 1}
-  recoilPattern: []
   hipFireSpread: 1
   aimingSpread: 0
   maxSpreadIncrease: 1
   spreadIncreasePerShot: 0.1
   spreadRecoveryTime: 0.5
   spreadRecoveryDelay: 0.2
-  enemyImpactEffect: {fileID: 0}
-  surfaceImpactEffect: {fileID: 0}
+  enemyImpactEffect: {fileID: 4515497926535975121, guid: bddb971e34eb14d48be30c7b922eb077, type: 3}
+  surfaceImpactEffect: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+  audioSource: {fileID: 0}
+  soundClips: []
   impactForce: 500
   impactLifetime: 3
+  impactSoundVolume: 0.7
 --- !u!114 &918777720018909239
 MonoBehaviour:
   m_ObjectHideFlags: 0
