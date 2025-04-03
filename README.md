@@ -14,10 +14,11 @@ Souciss-FPS is a lightweight, customizable first-person shooter framework built 
 - Configurable walking and running speeds
 - Jumping mechanics with adjustable jump height
 - Camera control with customizable sensitivity and rotation limits
-- Realistic weapon sway effect for immersive gameplay
+- Realistic customizable weapon sway effect for immersive gameplay
+- Easy customizable weapon spread system and muzzle flash
+- Easy customizable weapon target hit effect
 - Simple project structure for easy expansion
 - Fully customizable through the Unity Inspector
-- Mobile-friendly input options (planned)
 
 ## 🔧 Requirements
 - Unity 2022.3.27f1 or newer
@@ -29,7 +30,7 @@ Souciss-FPS is a lightweight, customizable first-person shooter framework built 
    git clone https://github.com/Souciss12/Souciss-FPS.git
    ```
 2. Open the project in Unity Hub using Unity 2022.3.27f1 or later.
-3. Open the `SampleScene.unity` file to explore the demo environment.
+3. Open the `Demo` scene to explore the demo environment.
 
 ## 🎮 Controls
 - **W, A, S, D**: Movement
@@ -45,9 +46,24 @@ The FPS Controller and Weapon components can be easily customized through the Un
 - Walk Speed
 - Run Speed
 - Jump Power
-- Look Sensitivity
-- Look X Limit (vertical rotation limit)
 - Gravity
+- Mouse Sensitivity
+- Look X Limit (vertical rotation limit)
+
+### Gun Controller Parameters:
+- Fire Rate
+- Clip Size
+- Ammo Capacity (Capacity in reserve)
+- Muzzle Flash Images
+- Weapon Position + Weapon Position with Scope
+- Weapon Rotation + Weapon Rotation with Scope
+- Fire Spread + Fire Spread with Scope
+- Max Fire Spread Increase
+- Fire Spread Increase per Shot
+- Fire Spread Recovery Time
+- Enemy Impact Effect
+- Surface Impact Effect
+- Fire Impact Force
 
 ### Weapon Sway Parameters:
 - Sway Amount
@@ -55,17 +71,17 @@ The FPS Controller and Weapon components can be easily customized through the Un
 - Sway Smoothness
 - Rotation Amount
 - Max Rotation Amount
+- Rotation Smoothness
 
 ## 📋 Planned Features
-- [ ] Advanced weapon system with recoil
-- [ ] Easily customisable weapon fire
+- [ ] Customizable weapon recoil
 - [ ] Footstep sounds based on surface material
-- [ ] Head bobbing for more immersive movement
+- [ ] Fire impacts sounds based on target type
+- [ ] Basic health system
 - [ ] Multiplayer capabilities
-- [ ] AI enemy system
 
 ## 📦 Releases
-#### [v0.1.0 - Initial Release](https://github.com/Souciss12/Souciss-FPS/releases/tag/v0.1.0)
+### [v0.1.0 - Initial Release](https://github.com/Souciss12/Souciss-FPS/releases/tag/v0.1.0)
 - Basic FPS controller implementation
 - Camera controls with mouse
 - Walking and running mechanics
@@ -76,25 +92,16 @@ The FPS Controller and Weapon components can be easily customized through the Un
 - Demo scene with basic environment
 
 ### Upcoming in v0.2.0
-- Simple enemy AI
-- Health system
-- Interactive objects
-- Sound effects
-- Multiplayer capabilities
+- Customizable weapon recoil
+- Footstep sounds based on surface material
+- Fire impacts sounds based on target type
+- Basic health system
 
 ## 📸 Screenshots
-
-
 - None currently
 
 ## 🤝 Contributing
 Contributions are welcome! Feel free to fork the project and submit pull requests.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📞 Contact
 If you have any questions or suggestions, please open an issue or join my [discord](https://discord.com/invite/fe2RfUPkBu).

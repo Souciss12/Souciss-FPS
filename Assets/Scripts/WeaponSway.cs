@@ -5,9 +5,9 @@ using UnityEngine;
 public class WeaponSway : MonoBehaviour
 {
     [Header("Sway Settings")]
-    public float swayAmount = 0.02f; // Intensité du sway
+    public float swayAmount = 0.02f; // IntensitÃ© du sway
     public float maxSwayAmount = 0.06f; // Amplitude max du sway
-    public float swaySmoothness = 4f; // Fluidité du mouvement
+    public float swaySmoothness = 4f; // FluiditÃ© du mouvement
 
     [Header("Rotation Settings")]
     public float rotationAmount = 2f;
@@ -30,11 +30,11 @@ public class WeaponSway : MonoBehaviour
 
     void ApplySway()
     {
-        // Récupération de l'entrée de la souris
+        // Rï¿½cupï¿½ration de l'entrï¿½e de la souris
         float mouseX = Input.GetAxis("Mouse X") * swayAmount;
         float mouseY = Input.GetAxis("Mouse Y") * swayAmount;
 
-        // Clamp pour éviter un déplacement excessif
+        // Clamp pour ï¿½viter un dï¿½placement excessif
         mouseX = Mathf.Clamp(mouseX, -maxSwayAmount, maxSwayAmount);
         mouseY = Mathf.Clamp(mouseY, -maxSwayAmount, maxSwayAmount);
 

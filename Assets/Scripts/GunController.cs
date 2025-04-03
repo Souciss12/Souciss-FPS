@@ -30,15 +30,6 @@ public class GunController : MonoBehaviour
     public float aimSmoothing = 10; // Lissage de la visée
     public float maxFireDistance = 500f; // Distance maximale de tir
 
-    [Header("Mouse Settings")]
-    public float mouseSensitivity = 1; // Sensibilité de la souris
-    Vector2 _currentRotation; // Rotation actuelle de la caméra
-
-    //Weapon Recoil
-    public bool randomizeRecoil; // Indique si le recul est aléatoire
-    public Vector2 randomRecoilConstraints; // Contraintes de recul aléatoire
-    public Vector2[] recoilPattern; // Modèle de recul
-
     [Header("Accuracy Settings")]
     public float hipFireSpread = 5f; // Dispersion en degrés quand on tire sans viser
     public float aimingSpread = 0.5f; // Dispersion en degrés quand on vise
