@@ -40,17 +40,19 @@ public class GunController : MonoBehaviour
     public float spreadRecoveryTime = 0.5f; // Temps nécessaire pour récupérer la précision initiale
     public float spreadRecoveryDelay = 0.2f; // Délai avant de commencer à récupérer la précision
 
-    [Header("Impact Effects")]
+    [Header("Impact Effects / Sounds")]
     public GameObject enemyImpactEffect; // Effet d'impact sur les ennemis (comme du sang)
     public GameObject surfaceImpactEffect; // Effet d'impact sur les surfaces normales
+    public AudioSource audioSource;
+    public AudioClip[] soundClips; // [0] = gunshot, [1] = enemy hit, [2] = surface hit
     public float impactForce = 500f; // Force appliquée aux objets touchés
     public float impactLifetime = 3f; // Durée de vie des effets d'impact en secondes
+    public float impactSoundVolume = 0.7f; // Volume des sons d'impact
 
     private bool _wasAiming = false; // Variable pour suivre l'état de visée précédent
 
     private void Awake()
     {
-        // Convert Euler angles to Quaternions
         weaponRotationQuaternion = Quaternion.Euler(weaponRotation);
         weaponAimingRotationQuaternion = Quaternion.Euler(weaponAimingRotation);
     }
@@ -63,9 +65,11 @@ public class GunController : MonoBehaviour
         _currentSpread = hipFireSpread;
         _lastShotTime = -spreadRecoveryDelay;
 
-        // Initialize weapon to normal position and rotation
         transform.localPosition = weaponPosition;
         transform.localRotation = weaponRotationQuaternion;
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -120,23 +124,18 @@ public class GunController : MonoBehaviour
             targetRot = weaponAimingRotationQuaternion;
         }
 
-        // Use a more consistent interpolation factor
         float lerpFactor = Mathf.Clamp01(aimSmoothing * Time.deltaTime);
 
-        // Interpolate position
         Vector3 desiredPosition = Vector3.Lerp(transform.localPosition, targetPos, lerpFactor);
 
-        // Snap to exact position if very close (prevents floating point imprecision)
         if (Vector3.Distance(transform.localPosition, targetPos) < 0.001f)
             transform.localPosition = targetPos;
         else
             transform.localPosition = desiredPosition;
 
-        // Improved rotation handling with higher smoothing for rotation
         float rotationFactor = Mathf.Clamp01((aimSmoothing * 0.8f) * Time.deltaTime);
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, rotationFactor);
 
-        // Only snap to target rotation when very close to avoid jitter
         if (Quaternion.Angle(transform.localRotation, targetRot) < 0.5f)
         {
             transform.localRotation = targetRot;
@@ -148,37 +147,17 @@ public class GunController : MonoBehaviour
     void DetermineRecoil()
     {
         transform.localPosition -= Vector3.forward * 0.1f;
-
-        // if (randomizeRecoil)
-        // {
-        //     float xRecoil = Random.Range(-randomRecoilConstraints.x, randomRecoilConstraints.x);
-        //     float yRecoil = Random.Range(-randomRecoilConstraints.y, randomRecoilConstraints.y);
-
-        //     Vector2 recoild = new Vector2(xRecoil, yRecoil);
-
-        //     _currentRotation += recoild;
-        // }
-        // else
-        // {
-        //     int currentStep = clipSize + 1 - _currentAmmoInClip;
-        //     currentStep = Mathf.Clamp(currentStep, 0, recoilPattern.Length - 1);
-
-        //     _currentRotation += recoilPattern[currentStep];
-        // }
     }
 
     void UpdateSpread()
     {
-        // Déterminer la dispersion de base en fonction de l'état de visée
         float baseSpread = Input.GetMouseButton(1) ? aimingSpread : hipFireSpread;
 
-        // Récupérer progressivement la précision après un certain délai
         if (Time.time > _lastShotTime + spreadRecoveryDelay)
         {
             _currentSpread = Mathf.Lerp(_currentSpread, baseSpread, Time.deltaTime / spreadRecoveryTime);
         }
 
-        // Limiter la dispersion maximale
         _currentSpread = Mathf.Clamp(_currentSpread, baseSpread, baseSpread + maxSpreadIncrease);
     }
 
@@ -186,7 +165,10 @@ public class GunController : MonoBehaviour
     {
         DetermineRecoil();
         StartCoroutine(MuzzleFlash());
-
+        if (audioSource != null && soundClips.Length > 0)
+        {
+            audioSource.PlayOneShot(soundClips[0]);
+        }
         RayCastForEnnemy();
 
         yield return new WaitForSeconds(fireRate);
@@ -212,10 +194,8 @@ public class GunController : MonoBehaviour
         {
             Debug.Log("Hit " + hit.collider.gameObject.name);
 
-            // Vérifier si l'objet touché est sur la couche "Enemy"
             bool isEnemy = hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy");
 
-            // Appliquer la force aux objets avec Rigidbody
             Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -223,22 +203,24 @@ public class GunController : MonoBehaviour
                 rb.AddForce(direction * impactForce);
             }
 
-            // Instancier l'effet d'impact approprié
+            int soundIndex = isEnemy ? 1 : 2; // 1 pour ennemi, 2 pour surface
+            if (soundClips.Length > soundIndex)
+            {
+                PlaySoundAtPosition(soundClips[soundIndex], hit.point, impactSoundVolume);
+            }
+
             GameObject impactEffectToSpawn = isEnemy ? enemyImpactEffect : surfaceImpactEffect;
             if (impactEffectToSpawn != null)
             {
-                // Créer l'effet d'impact
                 GameObject impactInstance = Instantiate(
                     impactEffectToSpawn,
                     hit.point,
                     Quaternion.LookRotation(hit.normal)
                 );
 
-                // Détruire l'effet après un certain temps
                 Destroy(impactInstance, impactLifetime);
             }
 
-            // Dessiner la ligne de débug avec la couleur appropriée
             Color debugColor = isEnemy ? Color.red : Color.green;
             Debug.DrawLine(start, hit.point, debugColor, 1f);
         }
@@ -249,23 +231,34 @@ public class GunController : MonoBehaviour
         }
     }
 
+    void PlaySoundAtPosition(AudioClip clip, Vector3 position, float volume = 1.0f)
+    {
+        GameObject tempAudio = new GameObject("TempAudio");
+        tempAudio.transform.position = position;
+
+        AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
+        tempAudioSource.clip = clip;
+        tempAudioSource.spatialBlend = 1.0f;
+        tempAudioSource.volume = volume;
+        tempAudioSource.Play();
+
+        float clipLength = clip != null ? clip.length : 0.5f;
+        Destroy(tempAudio, clipLength);
+    }
+
     Vector3 CalculateSpreadDirection(Vector3 originalDirection)
     {
-        // Si la dispersion actuelle est quasiment nulle, retourner la direction exacte
         const float minSpreadThreshold = 0.001f;
         if (_currentSpread <= minSpreadThreshold)
         {
             return originalDirection;
         }
 
-        // Créer une dispersion aléatoire
         float spreadAngleX = Random.Range(-_currentSpread, _currentSpread);
         float spreadAngleY = Random.Range(-_currentSpread, _currentSpread);
 
-        // Convertir en quaternion pour appliquer la rotation
         Quaternion spreadRotation = Quaternion.Euler(spreadAngleX, spreadAngleY, 0);
 
-        // Appliquer la dispersion à la direction originale
         return spreadRotation * originalDirection;
     }
 }
