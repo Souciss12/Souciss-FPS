@@ -86,8 +86,8 @@ The FPS Controller and Weapon components can be easily customized through the Un
 - Camera controls with mouse
 - Walking and running mechanics
 - Jumping functionality
-- Simple weapon sway effect
 - Weapon system with shooting mechanics
+- Simple weapon sway effect
 - Basic attackable enemy
 - Demo scene with basic environment
 
