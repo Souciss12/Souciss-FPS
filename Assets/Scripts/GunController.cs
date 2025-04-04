@@ -25,9 +25,9 @@ public class GunController : MonoBehaviour
     public Vector3 weaponPosition; // Position locale normale de l'arme
     public Vector3 weaponAimingPosition; // Position locale de l'arme en visée
     public Vector3 weaponRotation; // Rotation locale normale de l'arme
-    private Quaternion weaponRotationQuaternion;
+    [HideInInspector] public Quaternion weaponRotationQuaternion;
     public Vector3 weaponAimingRotation; // Rotation locale de l'arme en visée
-    private Quaternion weaponAimingRotationQuaternion;
+    [HideInInspector] public Quaternion weaponAimingRotationQuaternion;
 
     public float aimSmoothing = 10; // Lissage de la visée
     public float maxFireDistance = 500f; // Distance maximale de tir

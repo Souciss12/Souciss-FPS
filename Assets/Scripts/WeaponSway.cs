@@ -16,36 +16,53 @@ public class WeaponSway : MonoBehaviour
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    private GunController gunController;
 
     void Start()
     {
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
+        gunController = GetComponent<GunController>();
     }
 
-    void Update()
+    void LateUpdate()
     {
+        // Apply sway after GunController has positioned the weapon
         ApplySway();
     }
 
     void ApplySway()
     {
-        // R�cup�ration de l'entr�e de la souris
-        float mouseX = Input.GetAxis("Mouse X") * swayAmount;
-        float mouseY = Input.GetAxis("Mouse Y") * swayAmount;
+        bool isAiming = Input.GetMouseButton(1);
 
-        // Clamp pour �viter un d�placement excessif
+        Vector3 targetPos = isAiming ? gunController.weaponAimingPosition : gunController.weaponPosition;
+
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        if (isAiming)
+        {
+            mouseX *= swayAmount;
+            mouseY *= swayAmount;
+        }
+        else
+        {
+            mouseX *= swayAmount;
+            mouseY *= swayAmount;
+        }
+
         mouseX = Mathf.Clamp(mouseX, -maxSwayAmount, maxSwayAmount);
         mouseY = Mathf.Clamp(mouseY, -maxSwayAmount, maxSwayAmount);
 
-        // Calcul de la nouvelle position avec un Lerp pour adoucir
-        Vector3 targetPosition = new Vector3(-mouseX, -mouseY, 0) + initialPosition;
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * swaySmoothness);
+        Vector3 finalPosition = new Vector3(-mouseX, -mouseY, 0) + targetPos;
+        transform.localPosition = Vector3.Lerp(transform.localPosition, finalPosition, Time.deltaTime * swaySmoothness);
 
-        // Calcul de la nouvelle rotation
         float rotX = Mathf.Clamp(mouseX * rotationAmount, -maxRotationAmount, maxRotationAmount);
         float rotY = Mathf.Clamp(mouseY * rotationAmount, -maxRotationAmount, maxRotationAmount);
-        Quaternion targetRotation = Quaternion.Euler(rotY, rotX, 0) * initialRotation;
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * rotationSmoothness);
+
+        Quaternion targetRot = isAiming ? gunController.weaponAimingRotationQuaternion : gunController.weaponRotationQuaternion;
+
+        Quaternion finalRotation = Quaternion.Euler(rotY, rotX, 0) * targetRot;
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, Time.deltaTime * rotationSmoothness);
     }
 }
