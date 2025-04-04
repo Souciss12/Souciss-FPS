@@ -271,44 +271,124 @@ PrefabInstance:
       value: AK47
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.296
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.078
+      value: -0.17200005
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.123
+      value: 0.455
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.015455845
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.00000925472
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9999008
+      value: 0.9995674
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.01408568
+      value: -0.025023539
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 1.614
+      value: 2.867
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 178.227
       objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -0.043
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: clipSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: fireRate
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponPosition.x
+      value: 0.296
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponPosition.y
+      value: -0.1720001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponPosition.z
+      value: 0.455
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponRotation.x
+      value: 2.867
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponRotation.y
+      value: 178.227
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponRotation.z
+      value: -0.043
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: reservedAmmoCapacity
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: soundClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponAimingPosition.y
+      value: -0.055
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: weaponAimingPosition.z
+      value: 0.077
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: soundClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 29f6870dc09aea74c9228e2da8d597ef, type: 3}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: soundClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 82deecda51dfa1543890be3381bda9b9, type: 3}
+    - target: {fileID: 6412264156795898166, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6412264156795898166, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.072
+      objectReference: {fileID: 0}
+    - target: {fileID: 6412264156795898166, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.035
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -329,17 +409,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 7043149300228250098}
     m_Modifications:
     - target: {fileID: 3088082084977341484, guid: 5d6716a1e838ee443aabaa0aa5563e62, type: 3}
-      propertyPath: clipSize
-      value: 14
+      propertyPath: soundClips.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3088082084977341484, guid: 5d6716a1e838ee443aabaa0aa5563e62, type: 3}
-      propertyPath: audioSource
+      propertyPath: soundClips.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3088082084977341484, guid: 5d6716a1e838ee443aabaa0aa5563e62, type: 3}
-      propertyPath: reservedAmmoCapacity
-      value: 140
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 82deecda51dfa1543890be3381bda9b9, type: 3}
     - target: {fileID: 5008041460189230390, guid: 5d6716a1e838ee443aabaa0aa5563e62, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

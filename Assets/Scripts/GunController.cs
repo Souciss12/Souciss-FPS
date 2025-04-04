@@ -44,7 +44,7 @@ public class GunController : MonoBehaviour
     public GameObject enemyImpactEffect; // Effet d'impact sur les ennemis (comme du sang)
     public GameObject surfaceImpactEffect; // Effet d'impact sur les surfaces normales
     public AudioSource audioSource;
-    public AudioClip[] soundClips; // [0] = gunshot, [1] = enemy hit, [2] = surface hit
+    public AudioClip[] soundClips; // [0] = gunshot, [1] = enemy hit, [2] = surface hit, [3] = reload, [4] = empty clip
     public float impactForce = 500f; // Force appliquée aux objets touchés
     public float impactLifetime = 3f; // Durée de vie des effets d'impact en secondes
     public float impactSoundVolume = 0.7f; // Volume des sons d'impact
@@ -102,6 +102,10 @@ public class GunController : MonoBehaviour
             {
                 _currentAmmoInClip = clipSize;
                 _ammoInReserve -= amountNeeded;
+            }
+            if (audioSource != null && soundClips.Length > 0)
+            {
+                audioSource.PlayOneShot(soundClips[3]);
             }
         }
     }

@@ -2737,17 +2737,13 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: audioSource
+      propertyPath: soundClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: soundClips.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2320081570470653838, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5043588378895018097, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 82deecda51dfa1543890be3381bda9b9, type: 3}
     - target: {fileID: 5307261773440610656, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2788,10 +2784,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6679792118192693639, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: clipSize
       value: 30
@@ -2829,12 +2821,36 @@ PrefabInstance:
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: soundClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: weaponAimingPosition.y
       value: -0.055
       objectReference: {fileID: 0}
     - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: weaponAimingPosition.z
       value: 0.077
+      objectReference: {fileID: 0}
+    - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: soundClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 29f6870dc09aea74c9228e2da8d597ef, type: 3}
+    - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: soundClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 82deecda51dfa1543890be3381bda9b9, type: 3}
+    - target: {fileID: 8081614049987502436, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081614049987502436, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.072
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081614049987502436, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.035
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
