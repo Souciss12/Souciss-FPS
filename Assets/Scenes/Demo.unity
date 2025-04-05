@@ -3015,14 +3015,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2262126133825055331, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: soundClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
-    - target: {fileID: 2320081570470653838, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5307261773440610656, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3067,20 +3059,11 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: soundClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 95be4bf1697d0ab4799d13d6032a7fbf, type: 3}
-    - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: soundClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
     - target: {fileID: 8055460988434072696, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 57955879}
-    m_RemovedComponents:
-    - {fileID: 1446077549262627786, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
