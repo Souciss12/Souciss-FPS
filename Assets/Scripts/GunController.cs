@@ -16,6 +16,7 @@ public class GunController : MonoBehaviour
     public int _ammoInReserve; // Munitions en réserve
     private float _currentSpread; // Dispersion actuelle calculée en fonction des tirs et de l'état de visée
     private float _lastShotTime; // Moment du dernier tir pour gérer la récupération de la précision
+    private bool _canEmptyClipSound; // Indique si le son de clip vide peut être joué
 
     //Muzzle Flash
     public Image muzzleFlashImage; // Image de l'éclair de bouche
@@ -64,6 +65,7 @@ public class GunController : MonoBehaviour
         _canShoot = true;
         _currentSpread = hipFireSpread;
         _lastShotTime = -spreadRecoveryDelay;
+        _canEmptyClipSound = true;
 
         transform.localPosition = weaponPosition;
         transform.localRotation = weaponRotationQuaternion;
@@ -90,24 +92,47 @@ public class GunController : MonoBehaviour
 
             StartCoroutine(ShootGun());
         }
-        else if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0)
+        else if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0 && _canShoot)
         {
-            int amountNeeded = clipSize - _currentAmmoInClip;
-            if (amountNeeded >= _ammoInReserve)
-            {
-                _currentAmmoInClip += _ammoInReserve;
-                _ammoInReserve -= amountNeeded;
-            }
-            else
-            {
-                _currentAmmoInClip = clipSize;
-                _ammoInReserve -= amountNeeded;
-            }
+            StartCoroutine(ReloadGun());
+        }
+        else if (Input.GetMouseButtonDown(0) && _currentAmmoInClip <= 0 && _canEmptyClipSound)
+        {
+            _canEmptyClipSound = false;
             if (audioSource != null && soundClips.Length > 0)
             {
-                audioSource.PlayOneShot(soundClips[3]);
+                audioSource.PlayOneShot(soundClips[4]);
             }
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            _canEmptyClipSound = true;
+        }
+    }
+
+    IEnumerator ReloadGun()
+    {
+        _canShoot = false;
+
+        if (audioSource != null && soundClips.Length > 3)
+        {
+            audioSource.PlayOneShot(soundClips[3]);
+            yield return new WaitForSeconds(soundClips[3].length);
+        }
+
+        int amountNeeded = clipSize - _currentAmmoInClip;
+        if (amountNeeded >= _ammoInReserve)
+        {
+            _currentAmmoInClip += _ammoInReserve;
+            _ammoInReserve = 0;
+        }
+        else
+        {
+            _currentAmmoInClip = clipSize;
+            _ammoInReserve -= amountNeeded;
+        }
+
+        _canShoot = true;
     }
 
     void DetermineAim()
