@@ -168,9 +168,9 @@ MonoBehaviour:
   weaponAimingRotationQuaternion: {x: 0, y: 0, z: 0, w: 0}
   aimSmoothing: 15
   maxFireDistance: 500
-  hipFireSpread: 1
+  hipFireSpread: 1.6
   aimingSpread: 0
-  maxSpreadIncrease: 1
+  maxSpreadIncrease: 1.6
   spreadIncreasePerShot: 0.1
   spreadRecoveryTime: 0.5
   spreadRecoveryDelay: 0.2

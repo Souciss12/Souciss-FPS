@@ -270,10 +270,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK47
       objectReference: {fileID: 0}
-    - target: {fileID: 642269317157668828, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.296
@@ -313,6 +309,14 @@ PrefabInstance:
     - target: {fileID: 2622557179069205794, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.043
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: hipFireSpread
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421771805008432184, guid: dc59dd4984b355141b8e76fcd4b18073, type: 3}
+      propertyPath: maxSpreadIncrease
+      value: 1.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -375,10 +379,6 @@ PrefabInstance:
     - target: {fileID: 7569669689702563784, guid: 5d6716a1e838ee443aabaa0aa5563e62, type: 3}
       propertyPath: m_Name
       value: Pistol
-      objectReference: {fileID: 0}
-    - target: {fileID: 7569669689702563784, guid: 5d6716a1e838ee443aabaa0aa5563e62, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
