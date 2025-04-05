@@ -10,6 +10,7 @@ public class FPSController : MonoBehaviour
     public float runSpeed = 12f;
     public float jumpPower = 7f;
     public float gravity = 10f;
+    public int health = 100;
 
     public float lookSpeed = 2f;
     public float lookXLimit = 75f;
@@ -72,7 +73,17 @@ public class FPSController : MonoBehaviour
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, mouseX, 0);
         }
+        #endregion
 
+        #region Handles Health
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            health -= 10;
+        }
+        if (health <= 0)
+        {
+            Debug.Log("Player is dead!");
+        }
         #endregion
     }
 }
