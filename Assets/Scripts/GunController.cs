@@ -6,51 +6,51 @@ using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
     [Header("Gun Settings")]
-    public float fireRate = 0.1f; // Cadence de tir en secondes
-    public int clipSize = 30; // Capacité du chargeur
-    public int reservedAmmoCapacity = 270; // Capacité de munitions en réserve
+    public float fireRate = 0.1f; // Fire rate in seconds
+    public int clipSize = 30; // Clip capacity
+    public int reservedAmmoCapacity = 270; // Reserved ammo capacity
 
     //Variables that change throughout the code
-    public bool _canShoot; // Indique si l'arme peut tirer
-    public int _currentAmmoInClip; // Munitions actuelles dans le chargeur
-    public int _ammoInReserve; // Munitions en réserve
-    private float _currentSpread; // Dispersion actuelle calculée en fonction des tirs et de l'état de visée
-    private float _lastShotTime; // Moment du dernier tir pour gérer la récupération de la précision
-    private bool _canEmptyClipSound; // Indique si le son de clip vide peut être joué
+    public bool _canShoot; // Indicates if the weapon can shoot
+    public int _currentAmmoInClip; // Current ammo in clip
+    public int _ammoInReserve; // Ammo in reserve
+    private float _currentSpread; // Current spread calculated based on shots and aiming state
+    private float _lastShotTime; // Time of the last shot to manage accuracy recovery
+    private bool _canEmptyClipSound; // Indicates if the empty clip sound can be played
 
     //Muzzle Flash
-    public Image muzzleFlashImage; // Image de l'éclair de bouche
-    public Sprite[] flashes; // Tableaux de sprites pour l'éclair de bouche
+    public Image muzzleFlashImage; // Muzzle flash image
+    public Sprite[] flashes; // Array of sprites for muzzle flash
 
     //Aiming
-    public Vector3 weaponPosition; // Position locale normale de l'arme
-    public Vector3 weaponAimingPosition; // Position locale de l'arme en visée
-    public Vector3 weaponRotation; // Rotation locale normale de l'arme
+    public Vector3 weaponPosition; // Normal local position of the weapon
+    public Vector3 weaponAimingPosition; // Aiming local position of the weapon
+    public Vector3 weaponRotation; // Normal local rotation of the weapon
     [HideInInspector] public Quaternion weaponRotationQuaternion;
-    public Vector3 weaponAimingRotation; // Rotation locale de l'arme en visée
+    public Vector3 weaponAimingRotation; // Aiming local rotation of the weapon
     [HideInInspector] public Quaternion weaponAimingRotationQuaternion;
 
-    public float aimSmoothing = 10; // Lissage de la visée
-    public float maxFireDistance = 500f; // Distance maximale de tir
+    public float aimSmoothing = 10; // Aiming smoothing
+    public float maxFireDistance = 500f; // Maximum firing distance
 
     [Header("Accuracy Settings")]
-    public float hipFireSpread = 5f; // Dispersion en degrés quand on tire sans viser
-    public float aimingSpread = 0.5f; // Dispersion en degrés quand on vise
-    public float maxSpreadIncrease = 5f; // Augmentation maximale de la dispersion lors de tirs consécutifs
-    public float spreadIncreasePerShot = 0.5f; // Augmentation de dispersion par tir
-    public float spreadRecoveryTime = 0.5f; // Temps nécessaire pour récupérer la précision initiale
-    public float spreadRecoveryDelay = 0.2f; // Délai avant de commencer à récupérer la précision
+    public float hipFireSpread = 5f; // Spread in degrees when firing from the hip
+    public float aimingSpread = 0.5f; // Spread in degrees when aiming
+    public float maxSpreadIncrease = 5f; // Maximum spread increase during consecutive shots
+    public float spreadIncreasePerShot = 0.5f; // Spread increase per shot
+    public float spreadRecoveryTime = 0.5f; // Time needed to recover initial accuracy
+    public float spreadRecoveryDelay = 0.2f; // Delay before starting to recover accuracy
 
     [Header("Impact Effects / Sounds")]
-    public GameObject enemyImpactEffect; // Effet d'impact sur les ennemis (comme du sang)
-    public GameObject surfaceImpactEffect; // Effet d'impact sur les surfaces normales
+    public GameObject enemyImpactEffect; // Impact effect on enemies (like blood)
+    public GameObject surfaceImpactEffect; // Impact effect on normal surfaces
     public AudioSource audioSource;
     public AudioClip[] soundClips; // [0] = gunshot, [1] = enemy hit, [2] = surface hit, [3] = reload, [4] = empty clip
-    public float impactForce = 500f; // Force appliquée aux objets touchés
-    public float impactLifetime = 3f; // Durée de vie des effets d'impact en secondes
-    public float impactSoundVolume = 0.7f; // Volume des sons d'impact
+    public float impactForce = 500f; // Force applied to hit objects
+    public float impactLifetime = 3f; // Lifetime of impact effects in seconds
+    public float impactSoundVolume = 0.7f; // Volume of impact sounds
 
-    private bool _wasAiming = false; // Variable pour suivre l'état de visée précédent
+    private bool _wasAiming = false; // Variable to track previous aiming state
 
     private void Awake()
     {
@@ -232,7 +232,7 @@ public class GunController : MonoBehaviour
                 rb.AddForce(direction * impactForce);
             }
 
-            int soundIndex = isEnemy ? 1 : 2; // 1 pour ennemi, 2 pour surface
+            int soundIndex = isEnemy ? 1 : 2; // 1 for enemy, 2 for surface
             if (soundClips.Length > soundIndex)
             {
                 PlaySoundAtPosition(soundClips[soundIndex], hit.point, impactSoundVolume);
