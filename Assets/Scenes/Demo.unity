@@ -1463,6 +1463,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1603551329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1013441201 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6679792118192693639, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+  m_PrefabInstance: {fileID: 7040504047777626186}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1073159834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +2618,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1603551329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1796780116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1613344378409738069, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+  m_PrefabInstance: {fileID: 7040504047777626186}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1796780120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796780116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8865ad1078d4b4399c923d15470f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 1013441201}
+  - {fileID: 1999309590}
+  uiManager: {fileID: 57955879}
+  currentWeapon: 0
+--- !u!1 &1999309590 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2320081570470653838, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+  m_PrefabInstance: {fileID: 7040504047777626186}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2005216740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,7 +2899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2320081570470653838, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5307261773440610656, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2909,10 +2941,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6679792118192693639, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7198258350654760042, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
       propertyPath: hipFireSpread
       value: 1.6
@@ -2924,7 +2952,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1613344378409738069, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1796780120}
   m_SourcePrefab: {fileID: 100100000, guid: 5cdbaefb0fc18be4fa99b7d8feb9c259, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
