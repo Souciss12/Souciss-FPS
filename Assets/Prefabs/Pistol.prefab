@@ -675,7 +675,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4691c7bd80f63cd4b9cc757371d4ca52, type: 3}
   - {fileID: 8300000, guid: 1b7676342e8b3cd4e9042bc4cde6d985, type: 3}
   - {fileID: 8300000, guid: 82deecda51dfa1543890be3381bda9b9, type: 3}
-  - {fileID: 8300000, guid: faad5d11d7691d546bed25344f53082f, type: 3}
+  - {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
   impactForce: 500
   impactLifetime: 3
   impactSoundVolume: 1
