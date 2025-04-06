@@ -16,13 +16,13 @@ public class WeaponSway : MonoBehaviour
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
-    private GunController gunController;
+    private AutomaticGun gunController;
 
     void Start()
     {
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
-        gunController = GetComponent<GunController>();
+        gunController = GetComponent<AutomaticGun>();
     }
 
     void LateUpdate()

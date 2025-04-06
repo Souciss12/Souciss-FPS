@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI healthText;
-    public GunController gunStats;
+    public AutomaticGun gunStats;
     public FPSController playerController;
 
     void Start()
@@ -14,8 +14,8 @@ public class UIManager : MonoBehaviour
         healthText.text = playerController.health.ToString();
         if (gunStats == null)
         {
-            GunController[] allGuns = FindObjectsOfType<GunController>(true);
-            foreach (GunController gun in allGuns)
+            AutomaticGun[] allGuns = FindObjectsOfType<AutomaticGun>(true);
+            foreach (AutomaticGun gun in allGuns)
             {
                 if (gun.gameObject.activeInHierarchy)
                 {

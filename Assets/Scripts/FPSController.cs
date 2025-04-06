@@ -147,6 +147,11 @@ public class FPSController : MonoBehaviourPunCallbacks
         }
 
         #endregion
+
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     items[currentItemIndex].Use();
+        // }
     }
 
     void SwitchToWeapon(int index)
