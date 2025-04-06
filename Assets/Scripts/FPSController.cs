@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using Unity.VisualScripting;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 [RequireComponent(typeof(CharacterController))]
-public class FPSController : MonoBehaviourPunCallbacks
+public class FPSController : MonoBehaviourPunCallbacks, IDamageable
 {
     [SerializeField] Item[] items;
     [SerializeField] GameObject cameraHolder;
@@ -16,7 +17,8 @@ public class FPSController : MonoBehaviourPunCallbacks
     public float runSpeed = 12f;
     public float jumpPower = 7f;
     public float gravity = 10f;
-    public int health = 100;
+    public const float maxHealth = 100;
+    public float currentHealth = maxHealth;
 
     public float lookSpeed = 2f;
     public float lookXLimit = 75f;
@@ -28,11 +30,17 @@ public class FPSController : MonoBehaviourPunCallbacks
 
     CharacterController characterController;
 
+    PlayerManager playerManager;
+
     PhotonView PV;
+
+    private bool isAiming = false;
 
     void Awake()
     {
         PV = GetComponent<PhotonView>();
+
+        playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
     void Start()
@@ -101,17 +109,6 @@ public class FPSController : MonoBehaviourPunCallbacks
         }
         #endregion
 
-        #region Handles Health
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            health -= 10;
-        }
-        if (health <= 0)
-        {
-            Debug.Log("Player is dead!");
-        }
-        #endregion
-
         #region Handles Items
 
         for (int i = 0; i < items.Length; i++)
@@ -148,10 +145,20 @@ public class FPSController : MonoBehaviourPunCallbacks
 
         #endregion
 
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     items[currentItemIndex].Use();
-        // }
+        bool currentlyAiming = Input.GetMouseButton(1);
+        if (currentlyAiming != isAiming)
+        {
+            isAiming = currentlyAiming;
+            Hashtable hash = new Hashtable();
+            hash.Add("isAiming", isAiming);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            items[currentItemIndex].Use();
+        }
+        items[currentItemIndex].Aim();
     }
 
     void SwitchToWeapon(int index)
@@ -165,12 +172,6 @@ public class FPSController : MonoBehaviourPunCallbacks
 
         currentItemIndex = index;
 
-        // GunController gc = weapons[index].GetComponent<GunController>();
-        // if (gc != null && uiManager != null)
-        // {
-        //     uiManager.gunStats = gc;
-        // }
-
         if (PV.IsMine)
         {
             Hashtable hash = new Hashtable();
@@ -183,7 +184,47 @@ public class FPSController : MonoBehaviourPunCallbacks
     {
         if (!PV.IsMine && targetPlayer == PV.Owner)
         {
-            SwitchToWeapon((int)changedProps["currentWeapon"]);
+            // Handle weapon switching
+            if (changedProps.ContainsKey("currentWeapon"))
+            {
+                SwitchToWeapon((int)changedProps["currentWeapon"]);
+            }
+
+            // Handle aiming state updates
+            if (changedProps.ContainsKey("isAiming") && items[currentItemIndex] != null)
+            {
+                bool aimState = (bool)changedProps["isAiming"];
+                items[currentItemIndex].SetAimingState(aimState);
+            }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        PV.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if (!PV.IsMine)
+        {
+            return;
+        }
+
+        if (currentHealth > 0)
+        {
+            currentHealth -= damage;
+            Debug.Log("Took damage" + damage.ToString());
+        }
+        else if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        playerManager.Die();
     }
 }

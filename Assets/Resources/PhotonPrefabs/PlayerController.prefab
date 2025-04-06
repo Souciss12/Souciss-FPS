@@ -68,6 +68,7 @@ Transform:
   m_Children:
   - {fileID: 1047278464731235468}
   - {fileID: 6888234732029697425}
+  - {fileID: 5502326038850940406}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &2859348884546615974
@@ -117,7 +118,7 @@ MonoBehaviour:
   runSpeed: 12
   jumpPower: 7
   gravity: 10
-  health: 100
+  currentHealth: 100
   lookSpeed: 1.4
   lookXLimit: 75
   canMove: 1
@@ -217,6 +218,7 @@ MonoBehaviour:
   _currentAmmoInClip: 0
   _ammoInReserve: 0
   _currentSpread: 0
+  _lastShotTime: 0
   muzzleFlashImage: {fileID: 1338413952645280009}
   flashes:
   - {fileID: 21300000, guid: 1c255bf0b9c8233488785300cb631850, type: 3}
@@ -591,6 +593,7 @@ MonoBehaviour:
   _currentAmmoInClip: 0
   _ammoInReserve: 0
   _currentSpread: 0
+  _lastShotTime: 0
   muzzleFlashImage: {fileID: 1338413952645280009}
   flashes:
   - {fileID: 21300000, guid: 1c255bf0b9c8233488785300cb631850, type: 3}
@@ -1776,6 +1779,54 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8092273741870871718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5502326038850940406}
+  - component: {fileID: 2631957965489589729}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5502326038850940406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092273741870871718}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 909.3, y: 592.6113, z: -700.9582}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5307261773440610656}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2631957965489589729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092273741870871718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125c34d0af37d5843ba88a890b18d397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoText: {fileID: 0}
+  healthText: {fileID: 0}
+  gunStats: {fileID: 0}
+  playerController: {fileID: 7276785271262128436}
 --- !u!1 &8382503083118967041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,6 +2217,7 @@ MonoBehaviour:
   _currentAmmoInClip: 0
   _ammoInReserve: 0
   _currentSpread: 0
+  _lastShotTime: 0
   muzzleFlashImage: {fileID: 7931672412978429696}
   flashes:
   - {fileID: 21300000, guid: 1c255bf0b9c8233488785300cb631850, type: 3}

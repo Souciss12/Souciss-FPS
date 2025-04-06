@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: AK47
   m_EditorClassIdentifier: 
   itemName: AK47
+  damage: 10

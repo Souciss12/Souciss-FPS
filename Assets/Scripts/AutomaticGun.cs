@@ -5,10 +5,22 @@ using UnityEngine.UI;
 
 public class AutomaticGun : Gun
 {
-    // public override void Use()
-    // {
-    //     StartCoroutine(ShootGun());
-    // }
+    public override void Use()
+    {
+        if (_canShoot && _currentAmmoInClip > 0)
+        {
+            _canShoot = false;
+            _currentAmmoInClip--;
+            _lastShotTime = Time.time;
+
+            if (!Input.GetMouseButton(1) || aimingSpread > 0)
+            {
+                _currentSpread += spreadIncreasePerShot;
+            }
+
+            StartCoroutine(ShootGun());
+        }
+    }
 
     void DetermineRecoil()
     {
@@ -77,6 +89,8 @@ public class AutomaticGun : Gun
 
             Color debugColor = isEnemy ? Color.red : Color.green;
             Debug.DrawLine(start, hit.point, debugColor, 1f);
+
+            hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(itemInfo.damage);
         }
         else
         {

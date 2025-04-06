@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public abstract class Gun : Item
 {
@@ -14,7 +15,7 @@ public abstract class Gun : Item
     public int _currentAmmoInClip; // Current ammo in clip
     public int _ammoInReserve; // Ammo in reserve
     public float _currentSpread; // Current spread calculated based on shots and aiming state
-    private float _lastShotTime; // Time of the last shot to manage accuracy recovery
+    public float _lastShotTime; // Time of the last shot to manage accuracy recovery
     private bool _canEmptyClipSound; // Indicates if the empty clip sound can be played
 
     //Muzzle Flash
@@ -50,8 +51,9 @@ public abstract class Gun : Item
     public float impactSoundVolume = 0.7f; // Volume of impact sounds
 
     private bool _wasAiming = false; // Variable to track previous aiming state
+    private bool isAiming = false;
 
-    // public abstract override void Use();
+    public abstract override void Use();
 
     private void Awake()
     {
@@ -77,21 +79,20 @@ public abstract class Gun : Item
 
     private void Update()
     {
-        DetermineAim();
         UpdateSpread();
 
         if (Input.GetMouseButton(0) && _canShoot && _currentAmmoInClip > 0)
         {
-            _canShoot = false;
-            _currentAmmoInClip--;
-            _lastShotTime = Time.time;
+            // _canShoot = false;
+            // _currentAmmoInClip--;
+            // _lastShotTime = Time.time;
 
-            if (!Input.GetMouseButton(1) || aimingSpread > 0)
-            {
-                _currentSpread += spreadIncreasePerShot;
-            }
+            // if (!Input.GetMouseButton(1) || aimingSpread > 0)
+            // {
+            //     _currentSpread += spreadIncreasePerShot;
+            // }
 
-            StartCoroutine(ShootGun());
+            // StartCoroutine(ShootGun());
         }
         else if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0 && _canShoot)
         {
@@ -134,6 +135,32 @@ public abstract class Gun : Item
         }
 
         _canShoot = true;
+    }
+
+    public override void Aim()
+    {
+        isAiming = Input.GetMouseButton(1);
+        ApplyAimingVisuals(isAiming);
+    }
+
+    public override void SetAimingState(bool aiming)
+    {
+        isAiming = aiming;
+        ApplyAimingVisuals(isAiming);
+    }
+
+    private void ApplyAimingVisuals(bool aiming)
+    {
+        if (aiming)
+        {
+            transform.localPosition = weaponAimingPosition;
+            transform.localRotation = weaponAimingRotationQuaternion;
+        }
+        else
+        {
+            transform.localPosition = weaponPosition;
+            transform.localRotation = weaponRotationQuaternion;
+        }
     }
 
     void DetermineAim()
