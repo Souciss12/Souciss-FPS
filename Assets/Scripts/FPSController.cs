@@ -34,8 +34,6 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
 
     PhotonView PV;
 
-    private bool isAiming = false;
-
     void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -109,6 +107,17 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
         }
         #endregion
 
+        // #region Handles Health
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     health -= 10;
+        // }
+        // if (health <= 0)
+        // {
+        //     Debug.Log("Player is dead!");
+        // }
+        // #endregion
+
         #region Handles Items
 
         for (int i = 0; i < items.Length; i++)
@@ -145,15 +154,6 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
 
         #endregion
 
-        bool currentlyAiming = Input.GetMouseButton(1);
-        if (currentlyAiming != isAiming)
-        {
-            isAiming = currentlyAiming;
-            Hashtable hash = new Hashtable();
-            hash.Add("isAiming", isAiming);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             items[currentItemIndex].Use();
@@ -172,6 +172,12 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
 
         currentItemIndex = index;
 
+        // GunController gc = weapons[index].GetComponent<GunController>();
+        // if (gc != null && uiManager != null)
+        // {
+        //     uiManager.gunStats = gc;
+        // }
+
         if (PV.IsMine)
         {
             Hashtable hash = new Hashtable();
@@ -184,18 +190,7 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (!PV.IsMine && targetPlayer == PV.Owner)
         {
-            // Handle weapon switching
-            if (changedProps.ContainsKey("currentWeapon"))
-            {
-                SwitchToWeapon((int)changedProps["currentWeapon"]);
-            }
-
-            // Handle aiming state updates
-            if (changedProps.ContainsKey("isAiming") && items[currentItemIndex] != null)
-            {
-                bool aimState = (bool)changedProps["isAiming"];
-                items[currentItemIndex].SetAimingState(aimState);
-            }
+            SwitchToWeapon((int)changedProps["currentWeapon"]);
         }
     }
 

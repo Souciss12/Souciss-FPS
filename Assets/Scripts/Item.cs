@@ -8,8 +8,5 @@ public abstract class Item : MonoBehaviour
     public GameObject itemGameObject;
 
     public abstract void Use();
-
     public abstract void Aim();
-
-    public abstract void SetAimingState(bool isAiming);
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
 public abstract class Gun : Item
 {
@@ -51,7 +50,6 @@ public abstract class Gun : Item
     public float impactSoundVolume = 0.7f; // Volume of impact sounds
 
     private bool _wasAiming = false; // Variable to track previous aiming state
-    private bool isAiming = false;
 
     public abstract override void Use();
 
@@ -139,28 +137,7 @@ public abstract class Gun : Item
 
     public override void Aim()
     {
-        isAiming = Input.GetMouseButton(1);
-        ApplyAimingVisuals(isAiming);
-    }
-
-    public override void SetAimingState(bool aiming)
-    {
-        isAiming = aiming;
-        ApplyAimingVisuals(isAiming);
-    }
-
-    private void ApplyAimingVisuals(bool aiming)
-    {
-        if (aiming)
-        {
-            transform.localPosition = weaponAimingPosition;
-            transform.localRotation = weaponAimingRotationQuaternion;
-        }
-        else
-        {
-            transform.localPosition = weaponPosition;
-            transform.localRotation = weaponRotationQuaternion;
-        }
+        DetermineAim();
     }
 
     void DetermineAim()
