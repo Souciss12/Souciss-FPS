@@ -109,8 +109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4132243931358887427}
+  - {fileID: 3172011049243365201}
   cameraHolder: {fileID: 1125592036121571563}
   currentItemIndex: 0
   walkSpeed: 6
@@ -542,6 +542,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 524266504568141095}
+  - component: {fileID: 3172011049243365201}
   m_Layer: 0
   m_Name: AK47
   m_TagString: Untagged
@@ -565,6 +566,20 @@ Transform:
   - {fileID: 918286495915681136}
   m_Father: {fileID: 5611344185926188502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3172011049243365201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159734082929211801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e51dae644be2624a9b402fab5b89f5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfo: {fileID: 11400000, guid: 5b3478a02df9cf14c839981389f22bd2, type: 2}
+  itemGameObject: {fileID: 2320081570470653838}
 --- !u!1 &3159990190219450975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,6 +2032,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2346197505889944294}
+  - component: {fileID: 4132243931358887427}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -2040,3 +2056,17 @@ Transform:
   - {fileID: 8088358127211555705}
   m_Father: {fileID: 5611344185926188502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4132243931358887427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858307763812171531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e51dae644be2624a9b402fab5b89f5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfo: {fileID: 11400000, guid: 8f45c9c5978bdbe419dfa9a48f0adc69, type: 2}
+  itemGameObject: {fileID: 6679792118192693639}
