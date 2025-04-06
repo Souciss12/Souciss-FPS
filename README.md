@@ -7,7 +7,7 @@
 <img alt="Stars" src="https://img.shields.io/github/stars/Souciss12/Souciss-FPS">
 
 ## 📝 Description
-Souciss-FPS is a lightweight, customizable first-person shooter framework built with Unity. It provides the essential components needed to quickly develop FPS games with smooth character controls, weapon handling, and environment interaction.
+Souciss-FPS is a simple customizable multiplayer first-person shooter built with Unity.
 
 ## ✨ Features
 - Smooth first-person character controller
@@ -30,7 +30,8 @@ Souciss-FPS is a lightweight, customizable first-person shooter framework built 
    git clone https://github.com/Souciss12/Souciss-FPS.git
    ```
 2. Open the project in Unity Hub using Unity 2022.3.27f1 or later.
-3. Open the `Demo` scene to explore the demo environment.
+3. Before doing anything you need to change the Photon AppId in the assets/Photon/ with your Photon AppId wich can be found be creating one on photonengine.com
+4. Open the `MainMenu` and launch the game to explore the demo features.
 
 ## 🎮 Controls
 - **W, A, S, D**: Movement
@@ -76,12 +77,20 @@ The FPS Controller and Weapon components can be easily customized through the Un
 ## 📋 Planned Features
 - [ ] Customizable weapon recoil
 - [ ] Footstep sounds based on surface material
-- [ ] Fire impacts sounds based on target type
-- [ ] Basic health system
-- [ ] Multiplayer capabilities
+- [x] Fire impacts sounds based on target type
+- [x] Basic health system
+- [x] Multiplayer capabilities
 
 ## 📦 Releases
-### [v0.1.0 - Initial Release](https://github.com/Souciss12/Souciss-FPS/releases/tag/v0.1.0)
+### [v0.2.0 - Souciss-FPS](https://github.com/Souciss12/Souciss-FPS/releases/tag/v0.2.0)
+- Implemented multiplayer functionality using Photon PUN
+- Added basic health system
+- Added player synchronization across network
+- Fire impacts sounds based on target type
+- Implemented networked weapon shooting and damage
+- Added lobby system for creating and joining games
+
+### [v0.1.0 - Souciss-FPS](https://github.com/Souciss12/Souciss-FPS/releases/tag/v0.1.0)
 - Basic FPS controller implementation
 - Camera controls with mouse
 - Walking and running mechanics
@@ -91,11 +100,13 @@ The FPS Controller and Weapon components can be easily customized through the Un
 - Basic attackable enemy
 - Demo scene with basic environment
 
-### Upcoming in v0.2.0
+### Upcoming in v0.3.0
 - Customizable weapon recoil
 - Footstep sounds based on surface material
-- Fire impacts sounds based on target type
-- Basic health system
+- Advanced health system with regeneration
+- More multiplayer game modes
+- Player customization options
+- Enhanced UI for multiplayer lobbies
 
 ## 📸 Screenshots
 - None currently
@@ -107,3 +118,4 @@ Contributions are welcome! Feel free to fork the project and submit pull request
 If you have any questions or suggestions, please open an issue or join my [discord](https://discord.com/invite/fe2RfUPkBu).
 
 ⭐ Don't forget to star this repository if you find it useful! ⭐
+````
