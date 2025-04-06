@@ -1,8 +1,6 @@
 # Souciss-FPS
 
-<img alt="Unity Version" src="https://img.shields.io/badge/Unity-2022.3.27f1-blue.svg">
-<img alt="Downloads" src="https://img.shields.io/github/downloads/Souciss12/Souciss-FPS/total">
-<img alt="Last Commit" src="https://img.shields.io/github/last-commit/Souciss12/Souciss-FPS">
+<img alt="Unity Version" src="https://img.shields.io/badge/Unity-2022.3.27f1-blue.svg"> <img alt="Downloads" src="https://img.shields.io/github/downloads/Souciss12/Souciss-FPS/total"> <img alt="Last Commit" src="https://img.shields.io/github/last-commit/Souciss12/Souciss-FPS">
 
 ## 📝 Description
 Souciss-FPS is a simple customizable multiplayer first-person shooter built with Unity.
