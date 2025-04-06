@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 [RequireComponent(typeof(CharacterController))]
-public class FPSController : MonoBehaviour
+public class FPSController : MonoBehaviourPunCallbacks
 {
-    public Camera playerCamera;
+    [SerializeField] Item[] items;
+    [SerializeField] GameObject cameraHolder;
+
+    public int currentItemIndex = 0;
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
     public float jumpPower = 7f;
@@ -22,8 +28,23 @@ public class FPSController : MonoBehaviour
 
     CharacterController characterController;
 
+    PhotonView PV;
+
+    void Awake()
+    {
+        PV = GetComponent<PhotonView>();
+    }
+
     void Start()
     {
+        if (PV.IsMine)
+        {
+            SwitchToWeapon(currentItemIndex);
+        }
+        if (!PV.IsMine)
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+        }
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -31,6 +52,11 @@ public class FPSController : MonoBehaviour
 
     void Update()
     {
+        if (!PV.IsMine)
+        {
+            return;
+        }
+
         #region Handles Movement
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
@@ -70,7 +96,7 @@ public class FPSController : MonoBehaviour
             rotationX -= mouseY;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
 
-            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            cameraHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, mouseX, 0);
         }
         #endregion
@@ -85,5 +111,74 @@ public class FPSController : MonoBehaviour
             Debug.Log("Player is dead!");
         }
         #endregion
+
+        #region Handles Items
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (Input.GetKeyDown((i + 1).ToString()))
+            {
+                SwitchToWeapon(i);
+            }
+        }
+
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+        {
+            if (currentItemIndex >= items.Length - 1)
+            {
+                SwitchToWeapon(0);
+            }
+            else
+            {
+                SwitchToWeapon(currentItemIndex + 1);
+            }
+        }
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        {
+            if (currentItemIndex <= 0)
+            {
+                SwitchToWeapon(items.Length - 1);
+            }
+            else
+            {
+                SwitchToWeapon(currentItemIndex - 1);
+            }
+
+        }
+
+        #endregion
+    }
+
+    void SwitchToWeapon(int index)
+    {
+        if (index >= items.Length) return;
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            items[i].gameObject.SetActive(i == index);
+        }
+
+        currentItemIndex = index;
+
+        // GunController gc = weapons[index].GetComponent<GunController>();
+        // if (gc != null && uiManager != null)
+        // {
+        //     uiManager.gunStats = gc;
+        // }
+
+        if (PV.IsMine)
+        {
+            Hashtable hash = new Hashtable();
+            hash.Add("currentWeapon", currentItemIndex);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        if (!PV.IsMine && targetPlayer == PV.Owner)
+        {
+            SwitchToWeapon((int)changedProps["currentWeapon"]);
+        }
     }
 }
