@@ -26,8 +26,7 @@ Souciss-FPS is a simple customizable multiplayer first-person shooter built with
    git clone https://github.com/Souciss12/Souciss-FPS.git
    ```
 2. Open the project in Unity Hub using Unity 2022.3.27f1 or later.
-3. Before doing anything you need to change the Photon AppId in the assets/Photon/ with your Photon AppId wich can be found be creating one on photonengine.com
-4. Open the `MainMenu` and launch the game to explore the demo features.
+3. Open the `MainMenu` and launch the game to explore the demo features.
 
 ## 🎮 Controls
 - **W, A, S, D**: Movement
@@ -75,7 +74,7 @@ The FPS Controller and Weapon components can be easily customized through the Un
 - [ ] Footstep sounds based on surface material
 - [x] Fire impacts sounds based on target type
 - [x] Basic health system
-- [x] Multiplayer capabilities
+- [ ] Multiplayer capabilities
 
 ## 📦 Releases
 ### [v0.2.0 - Souciss-FPS](https://github.com/Souciss12/Souciss-FPS/releases/tag/v0.2.0)
@@ -114,4 +113,3 @@ Contributions are welcome! Feel free to fork the project and submit pull request
 If you have any questions or suggestions, please open an issue or join my [discord](https://discord.com/invite/fe2RfUPkBu).
 
 ⭐ Don't forget to star this repository if you find it useful! ⭐
-````
