@@ -33,7 +33,10 @@ Souciss-FPS is a simple customizable multiplayer first-person shooter built with
 - **Mouse**: Look around
 - **Space**: Jump
 - **Left Shift**: Run
+- **Left Click**: Shoot
+- **Right Click**: Aim
 - **R**: Reload weapon
+- **Mouse Wheel**: Change weapon
 
 ## 🛠 Customization
 The FPS Controller and Weapon components can be easily customized through the Unity Inspector:
