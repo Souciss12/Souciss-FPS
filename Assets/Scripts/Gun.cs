@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,10 +54,13 @@ public abstract class Gun : Item
 
     public abstract override void Use();
 
+    public PhotonView PV;
+
     private void Awake()
     {
         weaponRotationQuaternion = Quaternion.Euler(weaponRotation);
         weaponAimingRotationQuaternion = Quaternion.Euler(weaponAimingRotation);
+        PV = GetComponent<PhotonView>();
     }
 
     private void Start()
@@ -79,30 +83,14 @@ public abstract class Gun : Item
     {
         UpdateSpread();
 
-        if (Input.GetMouseButton(0) && _canShoot && _currentAmmoInClip > 0)
-        {
-            // _canShoot = false;
-            // _currentAmmoInClip--;
-            // _lastShotTime = Time.time;
-
-            // if (!Input.GetMouseButton(1) || aimingSpread > 0)
-            // {
-            //     _currentSpread += spreadIncreasePerShot;
-            // }
-
-            // StartCoroutine(ShootGun());
-        }
-        else if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0 && _canShoot)
+        if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0 && _canShoot)
         {
             StartCoroutine(ReloadGun());
         }
         else if (Input.GetMouseButtonDown(0) && _currentAmmoInClip <= 0 && _canEmptyClipSound)
         {
             _canEmptyClipSound = false;
-            if (audioSource != null && soundClips.Length > 0)
-            {
-                audioSource.PlayOneShot(soundClips[4]);
-            }
+            PlayEmptyClipSound();
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -116,7 +104,7 @@ public abstract class Gun : Item
 
         if (audioSource != null && soundClips.Length > 3)
         {
-            audioSource.PlayOneShot(soundClips[3]);
+            PlayReloadSound();
             yield return new WaitForSeconds(soundClips[3].length);
         }
 
@@ -133,6 +121,22 @@ public abstract class Gun : Item
         }
 
         _canShoot = true;
+    }
+
+    protected virtual void PlayEmptyClipSound()
+    {
+        if (audioSource != null && soundClips.Length > 4)
+        {
+            audioSource.PlayOneShot(soundClips[4]);
+        }
+    }
+
+    protected virtual void PlayReloadSound()
+    {
+        if (audioSource != null && soundClips.Length > 3)
+        {
+            audioSource.PlayOneShot(soundClips[3]);
+        }
     }
 
     public override void Aim()

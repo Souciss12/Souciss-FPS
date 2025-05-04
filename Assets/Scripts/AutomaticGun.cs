@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,17 +25,24 @@ public class AutomaticGun : Gun
 
     void DetermineRecoil()
     {
+        StartCoroutine(RecoilEffect());
+    }
+
+    IEnumerator RecoilEffect()
+    {
         transform.localPosition -= Vector3.forward * 0.1f;
+
+        yield return new WaitForSeconds(0.05f);
+
+        transform.localPosition += Vector3.forward * 0.1f;
     }
 
     public override IEnumerator ShootGun()
     {
-        DetermineRecoil();
-        StartCoroutine(MuzzleFlash());
-        if (audioSource != null && soundClips.Length > 0)
-        {
-            audioSource.PlayOneShot(soundClips[0]);
-        }
+        PV.RPC("RPC_DetermineRecoil", RpcTarget.All);
+        PV.RPC("RPC_MuzzleFlash", RpcTarget.All);
+        PV.RPC("RPC_PlaySoundShoot", RpcTarget.All);
+
         RayCastForEnnemy();
 
         yield return new WaitForSeconds(fireRate);
@@ -72,46 +80,21 @@ public class AutomaticGun : Gun
             int soundIndex = isEnemy ? 1 : 2; // 1 for enemy, 2 for surface
             if (soundClips.Length > soundIndex)
             {
-                PlaySoundAtPosition(soundClips[soundIndex], hit.point, impactSoundVolume);
-            }
-
-            GameObject impactEffectToSpawn = isEnemy ? enemyImpactEffect : surfaceImpactEffect;
-            if (impactEffectToSpawn != null)
-            {
-                GameObject impactInstance = Instantiate(
-                    impactEffectToSpawn,
-                    hit.point,
-                    Quaternion.LookRotation(hit.normal)
-                );
-
-                Destroy(impactInstance, impactLifetime);
+                PV.RPC("RPC_PlaySoundImpact", RpcTarget.All, soundIndex, hit.point);
             }
 
             Color debugColor = isEnemy ? Color.red : Color.green;
             Debug.DrawLine(start, hit.point, debugColor, 1f);
 
             hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(itemInfo.damage);
+            PV.RPC("RPC_EffectImpact", RpcTarget.All, hit.point, hit.normal);
+
         }
         else
         {
             Debug.Log("Missed");
             Debug.DrawLine(start, start + direction * maxFireDistance, Color.blue, 1f);
         }
-    }
-
-    void PlaySoundAtPosition(AudioClip clip, Vector3 position, float volume = 1.0f)
-    {
-        GameObject tempAudio = new GameObject("TempAudio");
-        tempAudio.transform.position = position;
-
-        AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
-        tempAudioSource.clip = clip;
-        tempAudioSource.spatialBlend = 1.0f;
-        tempAudioSource.volume = volume;
-        tempAudioSource.Play();
-
-        float clipLength = clip != null ? clip.length : 0.5f;
-        Destroy(tempAudio, clipLength);
     }
 
     Vector3 CalculateSpreadDirection(Vector3 originalDirection)
@@ -128,5 +111,91 @@ public class AutomaticGun : Gun
         Quaternion spreadRotation = Quaternion.Euler(spreadAngleX, spreadAngleY, 0);
 
         return spreadRotation * originalDirection;
+    }
+
+    [PunRPC]
+    void RPC_EffectImpact(Vector3 hitPosition, Vector3 hitNormal)
+    {
+        GameObject impactInstance = Instantiate(
+            surfaceImpactEffect,
+            hitPosition,
+            Quaternion.LookRotation(hitNormal, Vector3.up)
+        );
+
+        Destroy(impactInstance, impactLifetime);
+    }
+
+    [PunRPC]
+    void RPC_PlaySoundImpact(int soundIndex, Vector3 position)
+    {
+        if (soundClips.Length > soundIndex)
+        {
+            GameObject tempAudio = new GameObject("TempAudio");
+            tempAudio.transform.position = position;
+
+            AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
+            tempAudioSource.clip = soundClips[soundIndex];
+            tempAudioSource.spatialBlend = 1.0f;
+            tempAudioSource.volume = impactSoundVolume;
+            tempAudioSource.Play();
+
+            float clipLength = soundClips[soundIndex] != null ? soundClips[soundIndex].length : 0.5f;
+            Destroy(tempAudio, clipLength);
+        }
+    }
+
+    [PunRPC]
+    void RPC_PlaySoundShoot()
+    {
+        if (audioSource != null && soundClips.Length > 0)
+        {
+            audioSource.PlayOneShot(soundClips[0]);
+        }
+    }
+
+    [PunRPC]
+    void RPC_MuzzleFlash()
+    {
+        StartCoroutine(MuzzleFlash());
+    }
+
+    [PunRPC]
+    void RPC_DetermineRecoil()
+    {
+        DetermineRecoil();
+    }
+
+    protected override void PlayEmptyClipSound()
+    {
+        if (PV != null)
+        {
+            PV.RPC("RPC_PlaySoundEmptyClip", RpcTarget.All);
+        }
+    }
+
+    protected override void PlayReloadSound()
+    {
+        if (PV != null)
+        {
+            PV.RPC("RPC_PlaySoundReload", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    void RPC_PlaySoundEmptyClip()
+    {
+        if (audioSource != null && soundClips.Length > 4)
+        {
+            audioSource.PlayOneShot(soundClips[4]);
+        }
+    }
+
+    [PunRPC]
+    void RPC_PlaySoundReload()
+    {
+        if (audioSource != null && soundClips.Length > 3)
+        {
+            audioSource.PlayOneShot(soundClips[3]);
+        }
     }
 }

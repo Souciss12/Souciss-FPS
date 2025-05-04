@@ -40,6 +40,16 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_TakeDamage
+  - RPC_Shoot
+  - RPC_PlaySound
+  - RPC_EffectImpact
+  - RPC_MuzzleFlash
+  - RPC_PlaySoundImpact
+  - RPC_PlaySoundShoot
+  - RPC_DetermineRecoil
+  - RPC_CompleteRecoil
+  - RPC_PlaySoundEmptyClip
+  - RPC_PlaySoundReload
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
