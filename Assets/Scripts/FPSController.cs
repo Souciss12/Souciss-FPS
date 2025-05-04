@@ -159,6 +159,11 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
             items[currentItemIndex].Use();
         }
         items[currentItemIndex].Aim();
+
+        if (transform.position.y < -10f)
+        {
+            Die();
+        }
     }
 
     void SwitchToWeapon(int index)
