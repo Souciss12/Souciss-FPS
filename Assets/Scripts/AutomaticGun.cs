@@ -41,7 +41,7 @@ public class AutomaticGun : Gun
     {
         PV.RPC("RPC_DetermineRecoil", RpcTarget.All);
         PV.RPC("RPC_MuzzleFlash", RpcTarget.All);
-        PV.RPC("RPC_PlaySoundShoot", RpcTarget.All);
+        PV.RPC("RPC_PlaySoundShoot", RpcTarget.All, transform.position);
 
         RayCastForEnnemy();
 
@@ -145,11 +145,21 @@ public class AutomaticGun : Gun
     }
 
     [PunRPC]
-    void RPC_PlaySoundShoot()
+    void RPC_PlaySoundShoot(Vector3 position)
     {
-        if (audioSource != null && soundClips.Length > 0)
+        if (soundClips.Length > 0)
         {
-            audioSource.PlayOneShot(soundClips[0]);
+            GameObject tempAudio = new GameObject("TempAudioShoot");
+            tempAudio.transform.position = position;
+
+            AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
+            tempAudioSource.clip = soundClips[0];
+            tempAudioSource.spatialBlend = 1.0f;
+            tempAudioSource.volume = audioSource.volume;
+            tempAudioSource.Play();
+
+            float clipLength = soundClips[0].length;
+            Destroy(tempAudio, clipLength);
         }
     }
 
@@ -169,7 +179,7 @@ public class AutomaticGun : Gun
     {
         if (PV != null)
         {
-            PV.RPC("RPC_PlaySoundEmptyClip", RpcTarget.All);
+            PV.RPC("RPC_PlaySoundEmptyClip", RpcTarget.All, transform.position);
         }
     }
 
@@ -177,25 +187,45 @@ public class AutomaticGun : Gun
     {
         if (PV != null)
         {
-            PV.RPC("RPC_PlaySoundReload", RpcTarget.All);
+            PV.RPC("RPC_PlaySoundReload", RpcTarget.All, transform.position);
         }
     }
 
     [PunRPC]
-    void RPC_PlaySoundEmptyClip()
+    void RPC_PlaySoundEmptyClip(Vector3 position)
     {
-        if (audioSource != null && soundClips.Length > 4)
+        if (soundClips.Length > 4)
         {
-            audioSource.PlayOneShot(soundClips[4]);
+            GameObject tempAudio = new GameObject("TempAudioEmptyClip");
+            tempAudio.transform.position = position;
+
+            AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
+            tempAudioSource.clip = soundClips[4];
+            tempAudioSource.spatialBlend = 1.0f;
+            tempAudioSource.volume = audioSource.volume;
+            tempAudioSource.Play();
+
+            float clipLength = soundClips[4].length;
+            Destroy(tempAudio, clipLength);
         }
     }
 
     [PunRPC]
-    void RPC_PlaySoundReload()
+    void RPC_PlaySoundReload(Vector3 position)
     {
-        if (audioSource != null && soundClips.Length > 3)
+        if (soundClips.Length > 3)
         {
-            audioSource.PlayOneShot(soundClips[3]);
+            GameObject tempAudio = new GameObject("TempAudioReload");
+            tempAudio.transform.position = position;
+
+            AudioSource tempAudioSource = tempAudio.AddComponent<AudioSource>();
+            tempAudioSource.clip = soundClips[3];
+            tempAudioSource.spatialBlend = 1.0f;
+            tempAudioSource.volume = audioSource.volume;
+            tempAudioSource.Play();
+
+            float clipLength = soundClips[3].length;
+            Destroy(tempAudio, clipLength);
         }
     }
 }
