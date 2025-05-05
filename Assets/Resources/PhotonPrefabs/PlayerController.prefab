@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 5090941013555151728}
   - component: {fileID: 1606650829903643014}
   - component: {fileID: 8741695625039807308}
+  - component: {fileID: 4826806486375047743}
   m_Layer: 0
   m_Name: AK47
   m_TagString: Untagged
@@ -806,6 +807,24 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &4826806486375047743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159734082929211801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae1b4569cfcd8642b6828efcceb4dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayAmount: 0.1
+  maxSwayAmount: 0.1
+  swaySmoothness: 3
+  rotationAmount: 2
+  maxRotationAmount: 2
+  rotationSmoothness: 4
 --- !u!1 &3159990190219450975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,6 +2363,7 @@ GameObject:
   - component: {fileID: 175486219023357337}
   - component: {fileID: 706027336724540151}
   - component: {fileID: 989920775093585894}
+  - component: {fileID: 6138130837085740195}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -2537,3 +2557,21 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &6138130837085740195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858307763812171531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae1b4569cfcd8642b6828efcceb4dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayAmount: 0.2
+  maxSwayAmount: 0.2
+  swaySmoothness: 5
+  rotationAmount: 2
+  maxRotationAmount: 5
+  rotationSmoothness: 4
