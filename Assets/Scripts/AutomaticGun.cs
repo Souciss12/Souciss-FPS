@@ -8,8 +8,18 @@ public class AutomaticGun : Gun
 {
     public override void Use()
     {
+        if (!isAutomatic && !_semiAutoReadyToFire)
+        {
+            return;
+        }
+
         if (_canShoot && _currentAmmoInClip > 0)
         {
+            if (!isAutomatic)
+            {
+                _semiAutoReadyToFire = false;
+            }
+
             _canShoot = false;
             _currentAmmoInClip--;
             _lastShotTime = Time.time;

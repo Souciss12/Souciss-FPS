@@ -170,9 +170,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 918286495915681136}
-  - component: {fileID: 7198258350654760042}
-  - component: {fileID: 5043588378895018097}
-  - component: {fileID: 4678514289412821998}
   m_Layer: 0
   m_Name: AK47Object
   m_TagString: Untagged
@@ -197,172 +194,6 @@ Transform:
   - {fileID: 3363291937261236257}
   m_Father: {fileID: 524266504568141095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7198258350654760042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320081570470653838}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fb915a24d8d7645bb9ebcf1727790c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemInfo: {fileID: 0}
-  itemGameObject: {fileID: 0}
-  fireRate: 0.08
-  clipSize: 30
-  reservedAmmoCapacity: 300
-  _canShoot: 0
-  _currentAmmoInClip: 0
-  _ammoInReserve: 0
-  _currentSpread: 0
-  _lastShotTime: 0
-  muzzleFlashImage: {fileID: 1338413952645280009}
-  flashes:
-  - {fileID: 21300000, guid: 1c255bf0b9c8233488785300cb631850, type: 3}
-  weaponPosition: {x: 0.296, y: -0.1720001, z: 0.455}
-  weaponAimingPosition: {x: 0, y: -0.055, z: 0.077}
-  weaponRotation: {x: 2.867, y: 178.227, z: -0.043}
-  weaponRotationQuaternion: {x: 0, y: 0, z: 0, w: 0}
-  weaponAimingRotation: {x: 1.614, y: 180, z: 0}
-  weaponAimingRotationQuaternion: {x: 0, y: 0, z: 0, w: 0}
-  aimSmoothing: 15
-  maxFireDistance: 500
-  hipFireSpread: 1.6
-  aimingSpread: 0
-  maxSpreadIncrease: 1.6
-  spreadIncreasePerShot: 0.1
-  spreadRecoveryTime: 0.5
-  spreadRecoveryDelay: 0.2
-  enemyImpactEffect: {fileID: 4515497926535975121, guid: bddb971e34eb14d48be30c7b922eb077, type: 3}
-  surfaceImpactEffect: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
-  audioSource: {fileID: 0}
-  soundClips:
-  - {fileID: 8300000, guid: 29f6870dc09aea74c9228e2da8d597ef, type: 3}
-  - {fileID: 8300000, guid: 4691c7bd80f63cd4b9cc757371d4ca52, type: 3}
-  - {fileID: 8300000, guid: 1b7676342e8b3cd4e9042bc4cde6d985, type: 3}
-  - {fileID: 8300000, guid: 95be4bf1697d0ab4799d13d6032a7fbf, type: 3}
-  - {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
-  impactForce: 500
-  impactLifetime: 3
-  impactSoundVolume: 1
-  PV: {fileID: 0}
---- !u!114 &5043588378895018097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320081570470653838}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fae1b4569cfcd8642b6828efcceb4dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmount: 0.12
-  maxSwayAmount: 0.15
-  swaySmoothness: 4
-  rotationAmount: 2
-  maxRotationAmount: 5
-  rotationSmoothness: 4
---- !u!82 &4678514289412821998
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320081570470653838}
-  m_Enabled: 0
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &2607767443655455430
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +482,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 5b3478a02df9cf14c839981389f22bd2, type: 2}
   itemGameObject: {fileID: 2320081570470653838}
-  fireRate: 0.08
+  isAutomatic: 1
+  fireRate: 0.1
   clipSize: 30
   reservedAmmoCapacity: 300
   _canShoot: 0
@@ -659,6 +491,7 @@ MonoBehaviour:
   _ammoInReserve: 0
   _currentSpread: 0
   _lastShotTime: 0
+  _semiAutoReadyToFire: 1
   muzzleFlashImage: {fileID: 1338413952645280009}
   flashes:
   - {fileID: 21300000, guid: 1c255bf0b9c8233488785300cb631850, type: 3}
@@ -1304,8 +1137,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8088358127211555705}
-  - component: {fileID: 4143200089748432504}
-  - component: {fileID: 4354028226164252135}
   m_Layer: 0
   m_Name: PistolObject
   m_TagString: Untagged
@@ -1330,120 +1161,6 @@ Transform:
   - {fileID: 5921431269021138472}
   m_Father: {fileID: 2346197505889944294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4143200089748432504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6679792118192693639}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fae1b4569cfcd8642b6828efcceb4dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swayAmount: 0.12
-  maxSwayAmount: 0.15
-  swaySmoothness: 4
-  rotationAmount: 2
-  maxRotationAmount: 5
-  rotationSmoothness: 4
---- !u!82 &4354028226164252135
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6679792118192693639}
-  m_Enabled: 0
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &7061129581727170593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,7 +2118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 8f45c9c5978bdbe419dfa9a48f0adc69, type: 2}
   itemGameObject: {fileID: 6679792118192693639}
-  fireRate: 0.1
+  isAutomatic: 0
+  fireRate: 0.2
   clipSize: 14
   reservedAmmoCapacity: 140
   _canShoot: 0
@@ -2409,6 +2127,7 @@ MonoBehaviour:
   _ammoInReserve: 0
   _currentSpread: 0
   _lastShotTime: 0
+  _semiAutoReadyToFire: 1
   muzzleFlashImage: {fileID: 7931672412978429696}
   flashes:
   - {fileID: 21300000, guid: 1c255bf0b9c8233488785300cb631850, type: 3}

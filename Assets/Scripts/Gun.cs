@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public abstract class Gun : Item
 {
     [Header("Gun Settings")]
+    public bool isAutomatic = true; // Indicates if the gun is automatic
     public float fireRate = 0.1f; // Fire rate in seconds
     public int clipSize = 30; // Clip capacity
     public int reservedAmmoCapacity = 270; // Reserved ammo capacity
@@ -17,6 +18,7 @@ public abstract class Gun : Item
     public float _currentSpread; // Current spread calculated based on shots and aiming state
     public float _lastShotTime; // Time of the last shot to manage accuracy recovery
     private bool _canEmptyClipSound; // Indicates if the empty clip sound can be played
+    public bool _semiAutoReadyToFire = true; // Tracks if the player can fire again in semi-auto mode
 
     //Muzzle Flash
     public Image muzzleFlashImage; // Muzzle flash image
@@ -82,6 +84,11 @@ public abstract class Gun : Item
     private void Update()
     {
         UpdateSpread();
+
+        if (Input.GetMouseButtonUp(0) && !isAutomatic)
+        {
+            _semiAutoReadyToFire = true;
+        }
 
         if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0 && _canShoot)
         {

@@ -107,19 +107,7 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
         }
         #endregion
 
-        // #region Handles Health
-        // if (Input.GetKeyDown(KeyCode.H))
-        // {
-        //     health -= 10;
-        // }
-        // if (health <= 0)
-        // {
-        //     Debug.Log("Player is dead!");
-        // }
-        // #endregion
-
         #region Handles Items
-
         for (int i = 0; i < items.Length; i++)
         {
             if (Input.GetKeyDown((i + 1).ToString()))
@@ -152,12 +140,29 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
 
         }
 
-        #endregion
-
-        if (Input.GetMouseButtonDown(0))
+        Gun currentGun = items[currentItemIndex] as Gun;
+        if (currentGun != null)
+        {
+            if (currentGun.isAutomatic)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    items[currentItemIndex].Use();
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    items[currentItemIndex].Use();
+                }
+            }
+        }
+        else if (Input.GetMouseButtonDown(0))
         {
             items[currentItemIndex].Use();
         }
+
         items[currentItemIndex].Aim();
 
         if (transform.position.y < -10f)
@@ -165,6 +170,7 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
             Die();
         }
     }
+    #endregion
 
     void SwitchToWeapon(int index)
     {
