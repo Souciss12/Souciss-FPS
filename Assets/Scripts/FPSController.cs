@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviourPunCallbacks, IDamageable
 {
+    [SerializeField] Image healthbarImage;
+    [SerializeField] GameObject UI;
     [SerializeField] Item[] items;
     [SerializeField] GameObject cameraHolder;
 
@@ -50,6 +50,7 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
         if (!PV.IsMine)
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(UI);
         }
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -222,6 +223,11 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
         {
             currentHealth -= damage;
             Debug.Log("Took damage" + damage.ToString());
+            healthbarImage.fillAmount = currentHealth / maxHealth;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
         }
         else if (currentHealth <= 0)
         {
@@ -232,5 +238,14 @@ public class FPSController : MonoBehaviourPunCallbacks, IDamageable
     void Die()
     {
         playerManager.Die();
+    }
+
+    public Item GetCurrentItem()
+    {
+        if (items != null && currentItemIndex >= 0 && currentItemIndex < items.Length)
+        {
+            return items[currentItemIndex];
+        }
+        return null;
     }
 }
